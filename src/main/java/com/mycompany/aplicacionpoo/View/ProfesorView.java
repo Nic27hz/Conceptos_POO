@@ -243,8 +243,12 @@ public class ProfesorView extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Los campos no pueden estar vacios");
         }else{
             int id = Integer.parseInt(idtexto);
+            Profesor profe = new Profesor();
+            profe.setTipoContrato(tipoContrato);
+            profe.setId(id);
+            
             ProfesorController p = new ProfesorController();
-            p.agregarProfesor(id, tipoContrato);
+            p.agregarProfesor(profe);
             List<Profesor> profesor = p.mostrarProfesor();
         mostrarProfesorEnTabla(profesor);
         }
@@ -258,8 +262,12 @@ public class ProfesorView extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Los campos no pueden estar vacios");
         }else{
             int id = Integer.parseInt(idtexto);
+            Profesor profe = new Profesor();
+            profe.setTipoContrato(tipoContrato);
+            profe.setId(id);
+            
             ProfesorController p = new ProfesorController();
-            p.actualizarProfesor(id, tipoContrato);
+            p.agregarProfesor(profe);
             List<Profesor> profesor = p.mostrarProfesor();
             mostrarProfesorEnTabla(profesor);
         }
