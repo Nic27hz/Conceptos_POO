@@ -318,14 +318,8 @@ public class PersonasView extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Debe llenar todos los campos.");
         }else{
             int id = Integer.parseInt(idtexto);
-            Persona persona = new Persona();
-            persona.setId(id);
-            persona.setNombres(nombre);
-            persona.setApellidos(apellido);
-            persona.setEmail(correo);
-            persona.setTipo(tipo);
-
-            personaController.guardarPersona(persona);
+            
+            personaController.guardarPersona(id, nombre, apellido, correo, tipo);
             List<Persona> person = personaController.mostrarPersona();
             mostrarPersonasEnTabla(person);    
         }
@@ -350,14 +344,8 @@ public class PersonasView extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Debe llenar todos los campos.");
         }else{
             int id = Integer.parseInt(idtexto);
-            Persona persona = new Persona();
-            persona.setId(id);
-            persona.setNombres(nombre);
-            persona.setApellidos(apellido);
-            persona.setEmail(correo);
-            persona.setTipo(tipo);
 
-            personaController.actualizarPersona(persona);
+            personaController.actualizarPersona(id, nombre, apellido, correo, tipo);
             List<Persona> person = personaController.mostrarPersona();
             mostrarPersonasEnTabla(person);
         }

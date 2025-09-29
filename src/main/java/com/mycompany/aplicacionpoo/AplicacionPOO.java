@@ -13,10 +13,10 @@ public class AplicacionPOO {
 
     public static void main(String[] args){
         
-        Consola consola = new Consola();
+        //Consola consola = new Consola();
         Escritorio escritorio = new Escritorio();
         
-        consola.start();
+        //consola.start();
         escritorio.start();
     }
 }

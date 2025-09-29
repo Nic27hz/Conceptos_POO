@@ -2,6 +2,7 @@ package com.mycompany.aplicacionpoo.Controller;
 
 import com.mycompany.aplicacionpoo.Dao.Impl.PersonaDaoImpl;
 import com.mycompany.aplicacionpoo.Dao.PersonaDao;
+import com.mycompany.aplicacionpoo.Factory.Impl.PersonaFactory;
 import com.mycompany.aplicacionpoo.Model.Persona;
 import java.util.ArrayList;
 
@@ -18,17 +19,32 @@ import java.util.ArrayList;
  * @author nicol
  */
 public class PersonaController {
-    private PersonaDao personaDao;
+    private final PersonaDao personaDao;
+    private final PersonaFactory personaFactory;
 
     public PersonaController() {
         this.personaDao = new PersonaDaoImpl();
+        this.personaFactory = new PersonaFactory();
     }
 
-    public void guardarPersona(Persona persona){
+    public void guardarPersona(int id, String nombre, String apellido, String correo, String tipo){
+        Persona persona = (Persona) personaFactory.crear();
+            persona.setId(id);
+            persona.setNombres(nombre);
+            persona.setApellidos(apellido);
+            persona.setEmail(correo);
+            persona.setTipo(tipo);
+            
         personaDao.guardarPersona(persona);
     }
     
-    public void actualizarPersona(Persona persona){
+    public void actualizarPersona(int id, String nombre, String apellido, String correo, String tipo){
+        Persona persona = (Persona) personaFactory.crear();
+            persona.setId(id);
+            persona.setNombres(nombre);
+            persona.setApellidos(apellido);
+            persona.setEmail(correo);
+            persona.setTipo(tipo);
         personaDao.actualizarPersona(persona);
     }
     

@@ -309,21 +309,9 @@ public class EstudianteView extends javax.swing.JFrame {
             double promedio = Double.parseDouble(promediotexto);
             boolean estado = Boolean.parseBoolean(estadotexto);
             double idPrograma = Double.parseDouble(idprogramatexto);
-            
-            Programa programa = new Programa();
-            programa.setId(idPrograma);
-
-            // Crear objeto Estudiante
-            Estudiante estudiante = new Estudiante();
-            estudiante.setId(id);
-            estudiante.setCodigo(codigo);
-            estudiante.setPromedio(promedio);
-            estudiante.setActivo(estado);
-            estudiante.setPrograma(programa);
-
-            // Pasar el objeto al controlador
+       
             EstudianteController e = new EstudianteController();
-            e.agregarEstudiante(estudiante);
+            e.agregarEstudiante(id, codigo, promedio, estado, idPrograma);
             
             List<Estudiante> lista = e.mostrarEstudiante();
             mostrarEstudianteEnTabla(lista);
@@ -347,21 +335,10 @@ public class EstudianteView extends javax.swing.JFrame {
             double promedio = Double.parseDouble(promediotexto);
             boolean estado = Boolean.parseBoolean(estadotexto);
             double idPrograma = Double.parseDouble(idprogramatexto);
-            
-            Programa programa = new Programa();
-            programa.setId(idPrograma);
-
-            // Crear objeto Estudiante
-            Estudiante estudiante = new Estudiante();
-            estudiante.setId(id);
-            estudiante.setCodigo(codigo);
-            estudiante.setPromedio(promedio);
-            estudiante.setActivo(estado);
-            estudiante.setPrograma(programa);
-
+           
             // Pasar el objeto al controlador
             EstudianteController e = new EstudianteController();
-            e.agregarEstudiante(estudiante);
+            e.actualizarEstudiante(id, codigo, promedio, estado, idPrograma);
             List<Estudiante> lista = e.mostrarEstudiante();
             mostrarEstudianteEnTabla(lista);
 

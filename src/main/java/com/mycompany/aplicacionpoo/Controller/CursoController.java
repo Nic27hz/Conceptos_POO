@@ -6,6 +6,8 @@ package com.mycompany.aplicacionpoo.Controller;
 
 import com.mycompany.aplicacionpoo.Dao.CursoDao;
 import com.mycompany.aplicacionpoo.Dao.Impl.CursoDaoImpl;
+import com.mycompany.aplicacionpoo.Factory.Impl.CursoFactory;
+import com.mycompany.aplicacionpoo.Factory.Impl.ProgramaFactory;
 import com.mycompany.aplicacionpoo.Model.Curso;
 import com.mycompany.aplicacionpoo.Model.Programa;
 import java.util.ArrayList;
@@ -15,18 +17,24 @@ import java.util.ArrayList;
  * @author nicol
  */
 public class CursoController {
-    private CursoDao cursoDao;
-    
+    private final CursoDao cursoDao;
+    private final ProgramaFactory programaFactory;
+    private final CursoFactory cursoFactory;
+
+     
     public CursoController(){
         this.cursoDao = new CursoDaoImpl();
+        this.cursoFactory = new CursoFactory();
+        this.programaFactory = new ProgramaFactory();
     }
+    
     
     public void agregarCurso(int id, String nombre, boolean estado, double idPrograma){
         
-        Programa p = new Programa();
+        Programa p = (Programa) programaFactory.crear();
         p.setId(idPrograma);
         
-        Curso curso = new Curso();
+        Curso curso = (Curso) cursoFactory.crear();
         curso.setId(id);
         curso.setNombre(nombre);
         curso.setActivo(estado);
@@ -37,10 +45,10 @@ public class CursoController {
     
     public void actualizarCurso(int id, String nombre, boolean estado, double idPrograma){
         
-        Programa p = new Programa();
+        Programa p = (Programa) programaFactory.crear();
         p.setId(idPrograma);
         
-        Curso curso = new Curso();
+        Curso curso = (Curso) cursoFactory.crear();
         curso.setId(id);
         curso.setNombre(nombre);
         curso.setActivo(estado);

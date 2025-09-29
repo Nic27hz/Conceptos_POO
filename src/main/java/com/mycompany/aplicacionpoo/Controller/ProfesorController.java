@@ -6,6 +6,7 @@ package com.mycompany.aplicacionpoo.Controller;
 
 import com.mycompany.aplicacionpoo.Dao.Impl.ProfesorDaoImpl;
 import com.mycompany.aplicacionpoo.Dao.ProfesorDao;
+import com.mycompany.aplicacionpoo.Factory.Impl.ProfesorFactory;
 import com.mycompany.aplicacionpoo.Model.Profesor;
 import java.util.ArrayList;
 
@@ -15,18 +16,28 @@ import java.util.ArrayList;
  * @author nicol
  */
 public class ProfesorController {
-    private ProfesorDao profesorDao;
+    private final ProfesorDao profesorDao;
+    private final ProfesorFactory profesorFactory;
     
     public ProfesorController(){
         this.profesorDao = new ProfesorDaoImpl();
+        this.profesorFactory = new ProfesorFactory();
     }
     
-    public void agregarProfesor(Profesor profesor){
-        profesorDao.agregarProfesor(profesor);
+    public void agregarProfesor(int id, String tipoContrato){
+        
+        Profesor profe = (Profesor) profesorFactory.crear();
+        profe.setTipoContrato(tipoContrato);
+        profe.setId(id);
+            
+        profesorDao.agregarProfesor(profe);
     }
     
-    public void actualizarProfesor(Profesor Profesor){
-        profesorDao.actualizarProfesor(Profesor);
+    public void actualizarProfesor(int id, String tipoContrato){
+        Profesor profe = (Profesor) profesorFactory.crear();
+        profe.setTipoContrato(tipoContrato);
+        profe.setId(id);
+        profesorDao.actualizarProfesor(profe);
     }
     
     public void eliminarProfesor(int id){

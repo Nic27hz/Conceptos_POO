@@ -5,10 +5,7 @@
 package com.mycompany.aplicacionpoo.View;
 
 import com.mycompany.aplicacionpoo.Controller.CursoProfesorController;
-import com.mycompany.aplicacionpoo.Controller.InscripcionController;
 import com.mycompany.aplicacionpoo.Model.CursoProfesor;
-import com.mycompany.aplicacionpoo.Model.Inscripcion;
-import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
