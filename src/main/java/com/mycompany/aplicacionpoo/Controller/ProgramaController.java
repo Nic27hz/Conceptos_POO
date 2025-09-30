@@ -1,7 +1,7 @@
 package com.mycompany.aplicacionpoo.Controller;
 
-import com.mycompany.aplicacionpoo.Dao.ProgramaDao;
-import com.mycompany.aplicacionpoo.Dao.Impl.ProgramaDaoImpl;
+import com.mycompany.aplicacionpoo.Service.ProgramaDao;
+import com.mycompany.aplicacionpoo.Service.Impl.ProgramaDaoImpl;
 import com.mycompany.aplicacionpoo.Factory.Impl.FacultadFactory;
 import com.mycompany.aplicacionpoo.Factory.Impl.ProgramaFactory;
 import com.mycompany.aplicacionpoo.Model.Facultad;

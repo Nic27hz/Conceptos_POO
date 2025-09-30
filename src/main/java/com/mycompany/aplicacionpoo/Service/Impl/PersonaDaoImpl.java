@@ -2,10 +2,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.mycompany.aplicacionpoo.Dao.Impl;
+package com.mycompany.aplicacionpoo.Service.Impl;
 
 import com.mycompany.aplicacionpoo.Config.ConexionDB;
-import com.mycompany.aplicacionpoo.Dao.PersonaDao;
+import com.mycompany.aplicacionpoo.Service.PersonaDao;
 import com.mycompany.aplicacionpoo.Model.Persona;
 import java.sql.Connection;
 import java.sql.PreparedStatement;

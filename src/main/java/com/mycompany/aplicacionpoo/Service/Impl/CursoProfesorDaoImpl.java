@@ -1,7 +1,7 @@
-package com.mycompany.aplicacionpoo.Dao.Impl;
+package com.mycompany.aplicacionpoo.Service.Impl;
 
 import com.mycompany.aplicacionpoo.Config.ConexionDB;
-import com.mycompany.aplicacionpoo.Dao.CursoProfesorDao;
+import com.mycompany.aplicacionpoo.Service.CursoProfesorDao;
 import com.mycompany.aplicacionpoo.Model.Curso;
 import com.mycompany.aplicacionpoo.Model.CursoProfesor;
 import com.mycompany.aplicacionpoo.Model.Profesor;

@@ -1,7 +1,7 @@
-package com.mycompany.aplicacionpoo.Dao.Impl;
+package com.mycompany.aplicacionpoo.Service.Impl;
 
 import com.mycompany.aplicacionpoo.Config.ConexionDB;
-import com.mycompany.aplicacionpoo.Dao.ProfesorDao;
+import com.mycompany.aplicacionpoo.Service.ProfesorDao;
 import com.mycompany.aplicacionpoo.Model.Profesor;
 import java.sql.Connection;
 import java.sql.PreparedStatement;

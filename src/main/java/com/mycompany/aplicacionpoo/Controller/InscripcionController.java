@@ -1,7 +1,7 @@
 package com.mycompany.aplicacionpoo.Controller;
 
-import com.mycompany.aplicacionpoo.Dao.InscripcionDao;
-import com.mycompany.aplicacionpoo.Dao.Impl.InscripcionDaoImpl;
+import com.mycompany.aplicacionpoo.Service.InscripcionDao;
+import com.mycompany.aplicacionpoo.Service.Impl.InscripcionDaoImpl;
 import com.mycompany.aplicacionpoo.Factory.Impl.CursoFactory;
 import com.mycompany.aplicacionpoo.Factory.Impl.EstudianteFactory;
 import com.mycompany.aplicacionpoo.Factory.Impl.InscripcionFactory;

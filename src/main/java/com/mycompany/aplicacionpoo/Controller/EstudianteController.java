@@ -4,8 +4,8 @@
  */
 package com.mycompany.aplicacionpoo.Controller;
 
-import com.mycompany.aplicacionpoo.Dao.EstudianteDao;
-import com.mycompany.aplicacionpoo.Dao.Impl.EstudianteDaoImpl;
+import com.mycompany.aplicacionpoo.Service.EstudianteDao;
+import com.mycompany.aplicacionpoo.Service.Impl.EstudianteDaoImpl;
 import com.mycompany.aplicacionpoo.Factory.Impl.EstudianteFactory;
 import com.mycompany.aplicacionpoo.Factory.Impl.ProgramaFactory;
 import com.mycompany.aplicacionpoo.Model.Estudiante;
