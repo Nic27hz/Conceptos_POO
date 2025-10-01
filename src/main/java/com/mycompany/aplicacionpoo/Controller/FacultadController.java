@@ -4,13 +4,15 @@
  */
 package com.mycompany.aplicacionpoo.Controller;
 
+import com.mycompany.aplicacionpoo.DTO.FacultadDTO;
+import com.mycompany.aplicacionpoo.DTO.Mapper.FacultadMapper;
+import com.mycompany.aplicacionpoo.DTO.ProfesorDTO;
+import com.mycompany.aplicacionpoo.Factory.Impl.DTO.FacultadFactoryDTO;
+import com.mycompany.aplicacionpoo.Factory.Impl.DTO.ProfesorFactoryDTO;
 import com.mycompany.aplicacionpoo.Service.FacultadDao;
 import com.mycompany.aplicacionpoo.Service.Impl.FacultadDaoImpl;
-import com.mycompany.aplicacionpoo.Factory.Impl.FacultadFactory;
-import com.mycompany.aplicacionpoo.Factory.Impl.ProfesorFactory;
 import com.mycompany.aplicacionpoo.Model.Facultad;
-import com.mycompany.aplicacionpoo.Model.Profesor;
-import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -19,52 +21,51 @@ import java.util.ArrayList;
  */
 public class FacultadController {
     private final FacultadDao facultadDao;
-    private final FacultadFactory facultadFactory;
-    private final ProfesorFactory profesorFactory;
+    private final FacultadFactoryDTO facultadFactory;
+    private final ProfesorFactoryDTO profesorFactory;
+
 
     public FacultadController() {
         this.facultadDao = new FacultadDaoImpl();
-        this.facultadFactory = new FacultadFactory();
-        this.profesorFactory = new ProfesorFactory();
+        this.profesorFactory = new ProfesorFactoryDTO();
+        this.facultadFactory = new FacultadFactoryDTO();
     }
     
     public void agregarFacultad(int id, String nombre, int idDecano) {
-        
-        Facultad facultad = (Facultad) facultadFactory.crear();
-        facultad.setId(id);
-        facultad.setNombre(nombre);
-
-        Profesor decano = (Profesor) profesorFactory.crear();
+              
+        ProfesorDTO decano = (ProfesorDTO) profesorFactory.crearVacio();
         decano.setId(idDecano);
+        
+        FacultadDTO facultad = facultadFactory.crear(id, nombre, decano);
+        
+        Facultad facu = FacultadMapper.toEntity(facultad);
 
-        facultad.setDecano(decano);
-
-        facultadDao.agregarFacultad(facultad);
+        facultadDao.agregarFacultad(facu);
     }
 
     public void actualizarFacultad(int id, String nombre, int idDecano) {
         
-        Facultad facultad = (Facultad) facultadFactory.crear();
-        facultad.setId(id);
-        facultad.setNombre(nombre);
-
-        Profesor decano = (Profesor) profesorFactory.crear();
+        ProfesorDTO decano = (ProfesorDTO) profesorFactory.crearVacio();
         decano.setId(idDecano);
+        
+        FacultadDTO facultad = facultadFactory.crear(id, nombre, decano);
+        
+        Facultad facu = FacultadMapper.toEntity(facultad);
 
-        facultad.setDecano(decano);
-
-        facultadDao.actualizarFacultad(facultad);
+        facultadDao.agregarFacultad(facu);
     }
     
     public void eliminarFacultad(int id){
         facultadDao.eliminarFacultad(id);
     }
     
-    public Facultad buscarFacultad(int id){
-        return facultadDao.buscarFacultad(id);
+    public FacultadDTO buscarFacultad(int id){
+        Facultad facultad = facultadDao.buscarFacultad(id);
+        return FacultadMapper.toDTO(facultad);
     }
     
-    public ArrayList<Facultad> mostrarFacultad(){
-        return facultadDao.mostrarFacultad();
+    public List<FacultadDTO> mostrarFacultad(){
+        List<Facultad> facultad = facultadDao.mostrarFacultad();
+        return FacultadMapper.toDTOList(facultad);
     }
 }

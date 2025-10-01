@@ -5,8 +5,7 @@
 package com.mycompany.aplicacionpoo.View;
 
 import com.mycompany.aplicacionpoo.Controller.EstudianteController;
-import com.mycompany.aplicacionpoo.Model.Estudiante;
-import com.mycompany.aplicacionpoo.Model.Programa;
+import com.mycompany.aplicacionpoo.DTO.EstudianteDTO;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -26,11 +25,11 @@ public class EstudianteView extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         EstudianteController e = new EstudianteController();
-        List<Estudiante> lista = e.mostrarEstudiante();
+        List<EstudianteDTO> lista = e.mostrarEstudiante();
         mostrarEstudianteEnTabla(lista);
     }
     
-    private void mostrarEstudianteEnTabla(List<Estudiante> estudiante) {
+    private void mostrarEstudianteEnTabla(List<EstudianteDTO> estudiante) {
         DefaultTableModel modelo = new DefaultTableModel();
         modelo.addColumn("Id");
         modelo.addColumn("Codigo");
@@ -39,7 +38,7 @@ public class EstudianteView extends javax.swing.JFrame {
         modelo.addColumn("Promedio");
         modelo.addColumn("Programa");
 
-        for (Estudiante p : estudiante) {
+        for (EstudianteDTO p : estudiante) {
             modelo.addRow(new Object[]{ p.getId(), p.getCodigo(), p.getNombres(), p.isActivo(), p.getPromedio(), p.getPrograma().getNombre() });
         }
 
@@ -313,7 +312,7 @@ public class EstudianteView extends javax.swing.JFrame {
             EstudianteController e = new EstudianteController();
             e.agregarEstudiante(id, codigo, promedio, estado, idPrograma);
             
-            List<Estudiante> lista = e.mostrarEstudiante();
+            List<EstudianteDTO> lista = e.mostrarEstudiante();
             mostrarEstudianteEnTabla(lista);
 
         }
@@ -339,7 +338,7 @@ public class EstudianteView extends javax.swing.JFrame {
             // Pasar el objeto al controlador
             EstudianteController e = new EstudianteController();
             e.actualizarEstudiante(id, codigo, promedio, estado, idPrograma);
-            List<Estudiante> lista = e.mostrarEstudiante();
+            List<EstudianteDTO> lista = e.mostrarEstudiante();
             mostrarEstudianteEnTabla(lista);
 
         }
@@ -353,7 +352,7 @@ public class EstudianteView extends javax.swing.JFrame {
             double id = Double.parseDouble(idtexto);
             EstudianteController c = new EstudianteController();
             c.eliminarEstudiante(id);
-            List<Estudiante> lista = c.mostrarEstudiante();
+            List<EstudianteDTO> lista = c.mostrarEstudiante();
             mostrarEstudianteEnTabla(lista);
         }
     }//GEN-LAST:event_EliminarActionPerformed
@@ -369,7 +368,7 @@ public class EstudianteView extends javax.swing.JFrame {
         }else{
             double id = Double.parseDouble(idtexto);
             EstudianteController c = new EstudianteController();
-            Estudiante e = c.buscarEstudiante(id);
+            EstudianteDTO e = c.buscarEstudiante(id);
             String estudiante = "ID: " + e.getId() + 
                                  "\nCodigo: " + e.getCodigo() +
                                  "\nNombre: " + e.getNombres() +

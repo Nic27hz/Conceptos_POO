@@ -10,5 +10,5 @@ package com.mycompany.aplicacionpoo.Factory;
  */
 public interface Factory {
     
-    public abstract Object crear();
+    public abstract Object crearVacio();
 }

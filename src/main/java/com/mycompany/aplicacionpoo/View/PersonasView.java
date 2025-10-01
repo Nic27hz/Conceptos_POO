@@ -5,9 +5,10 @@
 package com.mycompany.aplicacionpoo.View;
 
 
-import com.mycompany.aplicacionpoo.Model.Persona;
+
 import com.mycompany.aplicacionpoo.Controller.PersonaController;
-import java.util.List;
+import com.mycompany.aplicacionpoo.DTO.PersonaDTO;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -27,11 +28,11 @@ public class PersonasView extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         PersonaController personaController = new PersonaController();
-        List<Persona> persona = personaController.mostrarPersona();
+        ArrayList<PersonaDTO> persona = personaController.mostrarPersona();
         mostrarPersonasEnTabla(persona);
     }
     
-    private void mostrarPersonasEnTabla(List<Persona> personas) {
+    private void mostrarPersonasEnTabla(ArrayList<PersonaDTO> personas) {
     DefaultTableModel modelo = new DefaultTableModel();
     modelo.addColumn("Id");
     modelo.addColumn("Nombre");
@@ -39,7 +40,7 @@ public class PersonasView extends javax.swing.JFrame {
     modelo.addColumn("Correo");
     modelo.addColumn("Tipo");
 
-    for (Persona p : personas) {
+    for (PersonaDTO p : personas) {
         modelo.addRow(new Object[]{ p.getId(), p.getNombres(), p.getApellidos(), p.getEmail(), p.getTipo() });
     }
 
@@ -320,7 +321,7 @@ public class PersonasView extends javax.swing.JFrame {
             int id = Integer.parseInt(idtexto);
             
             personaController.guardarPersona(id, nombre, apellido, correo, tipo);
-            List<Persona> person = personaController.mostrarPersona();
+            ArrayList<PersonaDTO> person = personaController.mostrarPersona();
             mostrarPersonasEnTabla(person);    
         }
     }//GEN-LAST:event_guardarActionPerformed
@@ -346,7 +347,7 @@ public class PersonasView extends javax.swing.JFrame {
             int id = Integer.parseInt(idtexto);
 
             personaController.actualizarPersona(id, nombre, apellido, correo, tipo);
-            List<Persona> person = personaController.mostrarPersona();
+            ArrayList<PersonaDTO> person = personaController.mostrarPersona();
             mostrarPersonasEnTabla(person);
         }
     }//GEN-LAST:event_actualizarActionPerformed
@@ -363,7 +364,7 @@ public class PersonasView extends javax.swing.JFrame {
             int id = Integer.parseInt(idtexto);
             PersonaController personaController = new PersonaController();
             personaController.eliminarPersona(id);
-            List<Persona> persona = personaController.mostrarPersona();
+            ArrayList<PersonaDTO> persona = personaController.mostrarPersona();
             mostrarPersonasEnTabla(persona);
         }
         
@@ -377,7 +378,7 @@ public class PersonasView extends javax.swing.JFrame {
         }else{
             int id = Integer.parseInt(idtexto);
             PersonaController personaController = new PersonaController();
-            Persona p = personaController.buscarPersona(id);
+            PersonaDTO p = personaController.buscarPersona(id);
             
             if(p == null){
                 JOptionPane.showMessageDialog(null, "Persona no encontrada");
@@ -390,7 +391,7 @@ public class PersonasView extends javax.swing.JFrame {
 
                 JOptionPane.showMessageDialog(null, persona);
             }
-            List<Persona> persona = personaController.mostrarPersona();
+            ArrayList<PersonaDTO> persona = personaController.mostrarPersona();
             mostrarPersonasEnTabla(persona);
         }
     }//GEN-LAST:event_buscarActionPerformed

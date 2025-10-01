@@ -4,68 +4,69 @@
  */
 package com.mycompany.aplicacionpoo.Controller;
 
+import com.mycompany.aplicacionpoo.DTO.EstudianteDTO;
+import com.mycompany.aplicacionpoo.DTO.Mapper.EstudianteMapper;
+import com.mycompany.aplicacionpoo.DTO.ProgramaDTO;
+import com.mycompany.aplicacionpoo.Factory.Impl.DTO.EstudianteFactoryDTO;
+import com.mycompany.aplicacionpoo.Factory.Impl.DTO.ProgramaFactoryDTO;
 import com.mycompany.aplicacionpoo.Service.EstudianteDao;
 import com.mycompany.aplicacionpoo.Service.Impl.EstudianteDaoImpl;
-import com.mycompany.aplicacionpoo.Factory.Impl.EstudianteFactory;
-import com.mycompany.aplicacionpoo.Factory.Impl.ProgramaFactory;
 import com.mycompany.aplicacionpoo.Model.Estudiante;
-import com.mycompany.aplicacionpoo.Model.Programa;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
  * @author nicol
  */
 public class EstudianteController {
+
     private final EstudianteDao estudianteDao;
-    private final ProgramaFactory programaFactory;
-    private final EstudianteFactory estudianteFactory;
+    private final EstudianteFactoryDTO estudianteFactory;
+    private final ProgramaFactoryDTO programaFactory;
 
     public EstudianteController() {
         this.estudianteDao = new EstudianteDaoImpl();
-        this.estudianteFactory = new EstudianteFactory();
-        this.programaFactory = new ProgramaFactory();
+        this.estudianteFactory = new EstudianteFactoryDTO();
+        this.programaFactory = new ProgramaFactoryDTO();
     }
-    
-    public void agregarEstudiante(double id, double codigo, double promedio, boolean estado, double idPrograma){
-        
-        Programa programa = (Programa) programaFactory.crear();
-        programa.setId(idPrograma);
 
-        Estudiante estudiante = (Estudiante) estudianteFactory.crear();
-        estudiante.setId(id);
-        estudiante.setCodigo(codigo);
-        estudiante.setPromedio(promedio);
-        estudiante.setActivo(estado);
-        estudiante.setPrograma(programa);
+
+    public void agregarEstudiante(double id, double codigo, double promedio, boolean estado, double idPrograma) {
         
+        ProgramaDTO programaDTO = (ProgramaDTO) programaFactory.crearVacio();
+        programaDTO.setId(idPrograma);
+        
+        EstudianteDTO dto = estudianteFactory.crear(codigo, programaDTO, estado, promedio);
+
+        Estudiante estudiante = EstudianteMapper.toEntity(dto);
         estudianteDao.agregarEstudiante(estudiante);
     }
-    
-    public void actualizarEstudiante(double id, double codigo, double promedio, boolean estado, double idPrograma) {
-        
-        Programa programa = (Programa) programaFactory.crear();
-        programa.setId(idPrograma);
-        
-        Estudiante estudiante = (Estudiante) estudianteFactory.crear();
-        estudiante.setId(id);
-        estudiante.setCodigo(codigo);
-        estudiante.setPromedio(promedio);
-        estudiante.setActivo(estado);
-        estudiante.setPrograma(programa);
 
+
+    public void actualizarEstudiante(double id, double codigo, double promedio, boolean estado, double idPrograma) {
+       ProgramaDTO programaDTO = (ProgramaDTO) programaFactory.crearVacio();
+        programaDTO.setId(idPrograma);
+        
+        EstudianteDTO dto = estudianteFactory.crear(codigo, programaDTO, estado, promedio);
+
+        Estudiante estudiante = EstudianteMapper.toEntity(dto);
         estudianteDao.actualizarEstudiante(estudiante);
     }
-    
-    public void eliminarEstudiante(double id){
+
+   
+    public void eliminarEstudiante(double id) {
         estudianteDao.eliminarEstudiante(id);
     }
-    
-    public Estudiante buscarEstudiante(double id){
-        return estudianteDao.buscarEstudiante(id);
+
+    public EstudianteDTO buscarEstudiante(double id) {
+        Estudiante estudiante = estudianteDao.buscarEstudiante(id);
+        return EstudianteMapper.toDTO(estudiante);
     }
-    
-    public ArrayList<Estudiante> mostrarEstudiante(){
-        return estudianteDao.mostrarEstudiante();
+
+    public List<EstudianteDTO> mostrarEstudiante() {
+        ArrayList<Estudiante> estudiantes = estudianteDao.mostrarEstudiante();
+        return EstudianteMapper.toDTOList(estudiantes);
     }
 }
+

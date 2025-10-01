@@ -14,7 +14,7 @@ import com.mycompany.aplicacionpoo.Model.Profesor;
 public class ProfesorFactory implements Factory{
     
     @Override
-    public Object crear(){
+    public Object crearVacio(){
         return new Profesor();
     }
 }

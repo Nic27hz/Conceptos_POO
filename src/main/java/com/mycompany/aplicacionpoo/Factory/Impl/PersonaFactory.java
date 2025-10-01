@@ -14,7 +14,11 @@ import com.mycompany.aplicacionpoo.Model.Persona;
 public class PersonaFactory implements Factory{
 
     @Override
-    public Object crear() {
+    public Object crearVacio() {
         return new Persona();
-    }   
+    }
+    
+    public Persona crear(){
+        return new Persona();
+    }
 }

@@ -5,6 +5,7 @@
 package com.mycompany.aplicacionpoo.View;
 
 import com.mycompany.aplicacionpoo.Controller.InscripcionController;
+import com.mycompany.aplicacionpoo.DTO.InscripcionDTO;
 import com.mycompany.aplicacionpoo.Model.Inscripcion;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -25,11 +26,11 @@ public class InscripcionView extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         InscripcionController i = new InscripcionController();
-        List<Inscripcion> lista = i.mostrarInscripciones();
+        List<InscripcionDTO> lista = i.mostrarInscripciones();
         mostrarInscripcionEnTabla(lista);
     }
     
-    private void mostrarInscripcionEnTabla(List<Inscripcion> inscripcion){
+    private void mostrarInscripcionEnTabla(List<InscripcionDTO> inscripcion){
         DefaultTableModel modelo = new DefaultTableModel();
         
         modelo.addColumn("Año");
@@ -39,7 +40,7 @@ public class InscripcionView extends javax.swing.JFrame {
         modelo.addColumn("Id");
         modelo.addColumn("Curso");
         
-        for (Inscripcion i: inscripcion){
+        for (InscripcionDTO i: inscripcion){
             modelo.addRow(new Object[] {i.getAño(), i.getSemestre(), i.getEstudiante().getId(), i.getEstudiante().getNombres(), i.getCurso().getId(), i.getCurso().getNombre()});
         }
         
@@ -290,7 +291,7 @@ public class InscripcionView extends javax.swing.JFrame {
             InscripcionController i = new InscripcionController();
             
             i.agregarInscripcion(año, semestre, idEstudiante, idCurso);
-            List<Inscripcion> lista = i.mostrarInscripciones();
+            List<InscripcionDTO> lista = i.mostrarInscripciones();
             mostrarInscripcionEnTabla(lista);
         }
     }//GEN-LAST:event_guardarActionPerformed
@@ -314,7 +315,7 @@ public class InscripcionView extends javax.swing.JFrame {
             InscripcionController i = new InscripcionController();
             
             i.actualizarInscripcion(año, semestre, idEstudiante, idCurso);
-            List<Inscripcion> lista = i.mostrarInscripciones();
+            List<InscripcionDTO> lista = i.mostrarInscripciones();
             mostrarInscripcionEnTabla(lista);
         }
     }//GEN-LAST:event_actualizarActionPerformed
@@ -333,7 +334,7 @@ public class InscripcionView extends javax.swing.JFrame {
             InscripcionController i = new InscripcionController();
             
             i.eliminarInscripcion(idEstudiante, idCurso);
-            List<Inscripcion> lista = i.mostrarInscripciones();
+            List<InscripcionDTO> lista = i.mostrarInscripciones();
             mostrarInscripcionEnTabla(lista);
         }
     }//GEN-LAST:event_EliminarActionPerformed
@@ -354,7 +355,7 @@ public class InscripcionView extends javax.swing.JFrame {
             
             InscripcionController i = new InscripcionController();
             
-            Inscripcion in = i.buscarInscripcion(idEstudiante, idCurso);
+            InscripcionDTO in = i.buscarInscripcion(idEstudiante, idCurso);
             String inscripcion ="\nAño: " + in.getAño() +
                                  "\nSemestre: " + in.getSemestre() +
                                  "\nEstudiante: " + in.getEstudiante().getNombres() +

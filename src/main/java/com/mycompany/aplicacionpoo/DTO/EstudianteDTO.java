@@ -7,12 +7,16 @@ package com.mycompany.aplicacionpoo.DTO;
 
 public class EstudianteDTO extends PersonaDTO {
     private double codigo;
-    private ProgramaDTO programa;  // puede ser un objeto Programa o un ProgramaDTO
+    private ProgramaDTO programa;
     private boolean activo;
     private double promedio;
 
-    public EstudianteDTO() {}
-
+    public EstudianteDTO(double codigo, ProgramaDTO programa, boolean activo, double promedio) {
+        this.codigo = codigo;
+        this.programa = programa;
+        this.activo = activo;
+        this.promedio = promedio;
+    }
     
     public EstudianteDTO(double id, String nombres, String apellidos, String email,
                          double codigo, ProgramaDTO programa, boolean activo, double promedio) {
@@ -22,6 +26,8 @@ public class EstudianteDTO extends PersonaDTO {
         this.activo = activo;
         this.promedio = promedio;
     }
+    
+    public EstudianteDTO() {}
 
     public double getCodigo() { return codigo; }
     public void setCodigo(double codigo) { this.codigo = codigo; }

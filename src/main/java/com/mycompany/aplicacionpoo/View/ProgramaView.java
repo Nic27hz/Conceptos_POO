@@ -5,10 +5,9 @@
 package com.mycompany.aplicacionpoo.View;
 
 import com.mycompany.aplicacionpoo.Controller.ProgramaController;
-import com.mycompany.aplicacionpoo.Model.Programa;
+import com.mycompany.aplicacionpoo.DTO.ProgramaDTO;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.sql.Date;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -28,11 +27,11 @@ public class ProgramaView extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         ProgramaController pc = new ProgramaController();
-        List<Programa> lista = pc.mostrarProgramas();
+        List<ProgramaDTO> lista = pc.mostrarProgramas();
         mostrarProgramaEnTabla(lista);
     }
     
-    private void mostrarProgramaEnTabla(List<Programa> programa) {
+    private void mostrarProgramaEnTabla(List<ProgramaDTO> programa) {
     DefaultTableModel modelo = new DefaultTableModel();
     modelo.addColumn("Id");
     modelo.addColumn("Nombres");
@@ -41,7 +40,7 @@ public class ProgramaView extends javax.swing.JFrame {
     modelo.addColumn("Id Facultad");
     modelo.addColumn("Nombre Facultad");
 
-    for (Programa p : programa) {
+    for (ProgramaDTO p : programa) {
         modelo.addRow(new Object[]{ p.getId(), p.getNombre(), p.getDuracion(), p.getRegistro(), p.getFacultad().getId(), p.getFacultad().getNombre() });
     }
 
@@ -329,7 +328,7 @@ public class ProgramaView extends javax.swing.JFrame {
                 
                 ProgramaController pc = new ProgramaController();
                 pc.guardarPrograma(id, nombre, duracion, registro, idFacultad);
-                List<Programa> lista = pc.mostrarProgramas();
+                List<ProgramaDTO> lista = pc.mostrarProgramas();
                 mostrarProgramaEnTabla(lista);
                 
             } catch (ParseException ex) {
@@ -360,7 +359,7 @@ public class ProgramaView extends javax.swing.JFrame {
                 
                 ProgramaController pc = new ProgramaController();
                 pc.actualizarPrograma(id, nombre, duracion, registro, idFacultad);
-                List<Programa> lista = pc.mostrarProgramas();
+                List<ProgramaDTO> lista = pc.mostrarProgramas();
                 mostrarProgramaEnTabla(lista);
                 
             } catch (ParseException ex) {
@@ -377,7 +376,7 @@ public class ProgramaView extends javax.swing.JFrame {
             double id = Double.parseDouble(idtexto);
             ProgramaController pc = new ProgramaController();
             pc.eliminarPrograma((int) id);
-            List<Programa> lista = pc.mostrarProgramas();
+            List<ProgramaDTO> lista = pc.mostrarProgramas();
             mostrarProgramaEnTabla(lista);
         }
     }//GEN-LAST:event_EliminarActionPerformed
@@ -394,7 +393,7 @@ public class ProgramaView extends javax.swing.JFrame {
             double id = Double.parseDouble(idtexto);
             
             ProgramaController pc = new ProgramaController();
-            Programa programa = pc.buscarPrograma((int) id);
+            ProgramaDTO programa = pc.buscarPrograma((int) id);
         
         String program = "ID: " + programa.getId() + 
                                  "\nNombre: " + programa.getNombre() +

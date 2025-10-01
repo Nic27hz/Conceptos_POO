@@ -6,7 +6,7 @@ package com.mycompany.aplicacionpoo.View;
  */
 
 import com.mycompany.aplicacionpoo.Controller.ProfesorController;
-import com.mycompany.aplicacionpoo.Model.Profesor;
+import com.mycompany.aplicacionpoo.DTO.ProfesorDTO;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -26,11 +26,11 @@ public class ProfesorView extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         ProfesorController profesorController = new ProfesorController();
-        List<Profesor> profesor = profesorController.mostrarProfesor();
+        List<ProfesorDTO> profesor = profesorController.mostrarProfesor();
         mostrarProfesorEnTabla(profesor);
     }
     
-    private void mostrarProfesorEnTabla(List<Profesor> profesor) {
+    private void mostrarProfesorEnTabla(List<ProfesorDTO> profesor) {
     DefaultTableModel modelo = new DefaultTableModel();
     modelo.addColumn("Id");
     modelo.addColumn("Nombre");
@@ -38,7 +38,7 @@ public class ProfesorView extends javax.swing.JFrame {
     modelo.addColumn("Correo");
     modelo.addColumn("Tipo Contrato");
 
-    for (Profesor p : profesor) {
+    for (ProfesorDTO p : profesor) {
         modelo.addRow(new Object[]{ p.getId(), p.getNombres(), p.getApellidos(), p.getEmail(), p.getTipoContrato() });
     }
 
@@ -246,8 +246,8 @@ public class ProfesorView extends javax.swing.JFrame {
                         
             ProfesorController p = new ProfesorController();
             p.agregarProfesor(id, tipoContrato);
-            List<Profesor> profesor = p.mostrarProfesor();
-        mostrarProfesorEnTabla(profesor);
+            List<ProfesorDTO> profesor = p.mostrarProfesor();
+            mostrarProfesorEnTabla(profesor);
         }
     }//GEN-LAST:event_guardarActionPerformed
 
@@ -262,7 +262,7 @@ public class ProfesorView extends javax.swing.JFrame {
                         
             ProfesorController p = new ProfesorController();
             p.actualizarProfesor(id, tipoContrato);
-            List<Profesor> profesor = p.mostrarProfesor();
+            List<ProfesorDTO> profesor = p.mostrarProfesor();
             mostrarProfesorEnTabla(profesor);
         }
     }//GEN-LAST:event_actualizarActionPerformed
@@ -276,7 +276,7 @@ public class ProfesorView extends javax.swing.JFrame {
             int id = Integer.parseInt(idtexto);
             ProfesorController p = new ProfesorController();
             p.eliminarProfesor(id);
-            List<Profesor> profesor = p.mostrarProfesor();
+            List<ProfesorDTO> profesor = p.mostrarProfesor();
             mostrarProfesorEnTabla(profesor);
         }
     }//GEN-LAST:event_EliminarActionPerformed
@@ -293,7 +293,7 @@ public class ProfesorView extends javax.swing.JFrame {
         }else{
             int id = Integer.parseInt(idtexto);
             ProfesorController profesorController = new ProfesorController();
-            Profesor p = profesorController.buscarProfesor(id);
+            ProfesorDTO p = profesorController.buscarProfesor(id);
             if(p == null){
                 JOptionPane.showMessageDialog(null, "No se encontró profesor con ese id");
             }else{

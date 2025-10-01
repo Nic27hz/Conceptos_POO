@@ -5,6 +5,7 @@
 package com.mycompany.aplicacionpoo.View;
 
 import com.mycompany.aplicacionpoo.Controller.CursoController;
+import com.mycompany.aplicacionpoo.DTO.CursoDTO;
 import com.mycompany.aplicacionpoo.Model.Curso;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -25,11 +26,11 @@ public class CursoView extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         CursoController cc = new CursoController();
-        List<Curso> listaCurso = cc.mostrarCurso();
+        List<CursoDTO> listaCurso = cc.mostrarCurso();
         mostrarCursoEnTabla(listaCurso);
     }
     
-    private void mostrarCursoEnTabla(List<Curso> curso) {
+    private void mostrarCursoEnTabla(List<CursoDTO> curso) {
     DefaultTableModel modelo = new DefaultTableModel();
     modelo.addColumn("Id");
     modelo.addColumn("Nombre");
@@ -37,7 +38,7 @@ public class CursoView extends javax.swing.JFrame {
     modelo.addColumn("Id Programa");
     modelo.addColumn("Nombre Programa");
 
-    for (Curso p : curso) {
+    for (CursoDTO p : curso) {
         modelo.addRow(new Object[]{ p.getId(), p.getNombre(), p.isActivo(), p.getPrograma().getId(), p.getPrograma().getNombre() });
     }
 
@@ -289,7 +290,7 @@ public class CursoView extends javax.swing.JFrame {
             
             CursoController cc = new CursoController();
             cc.agregarCurso(id, nombre, estado, idPrograma);
-            List<Curso> lista = cc.mostrarCurso();
+            List<CursoDTO> lista = cc.mostrarCurso();
             mostrarCursoEnTabla(lista);
         }
     }//GEN-LAST:event_guardarActionPerformed
@@ -311,7 +312,7 @@ public class CursoView extends javax.swing.JFrame {
             
             CursoController cc = new CursoController();
             cc.actualizarCurso(id, nombre, estado, idPrograma);
-            List<Curso> lista = cc.mostrarCurso();
+            List<CursoDTO> lista = cc.mostrarCurso();
             mostrarCursoEnTabla(lista);
         }
     }//GEN-LAST:event_actualizarActionPerformed
@@ -324,7 +325,7 @@ public class CursoView extends javax.swing.JFrame {
             int id = Integer.parseInt(idtexto);
             CursoController cc = new CursoController();
             cc.eliminarCurso(id);
-            List<Curso> lista = cc.mostrarCurso();
+            List<CursoDTO> lista = cc.mostrarCurso();
             mostrarCursoEnTabla(lista);
         }
     }//GEN-LAST:event_EliminarActionPerformed
@@ -340,7 +341,7 @@ public class CursoView extends javax.swing.JFrame {
         }else{
             int id = Integer.parseInt(idtexto);
             CursoController cc = new CursoController();
-            Curso curso = cc.buscarCurso(id);
+            CursoDTO curso = cc.buscarCurso(id);
                       
         String course = "ID: " + curso.getId() + 
                                  "\nNombre: " + curso.getNombre() +

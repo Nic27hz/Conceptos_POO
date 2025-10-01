@@ -4,29 +4,55 @@
  */
 package com.mycompany.aplicacionpoo.DTO;
 
-import java.time.LocalDate;
-
 public class InscripcionDTO {
-    private String nombreEstudiante;
-    private String nombreCurso;
-    private LocalDate fechaInscripcion;
+    private CursoDTO curso;
+    private int año;
+    private int semestre;
+    private EstudianteDTO estudiante;
 
-    public InscripcionDTO() {}
-
-    public InscripcionDTO(String nombreEstudiante, String nombreCurso, LocalDate fechaInscripcion) {
-        this.nombreEstudiante = nombreEstudiante;
-        this.nombreCurso = nombreCurso;
-        this.fechaInscripcion = fechaInscripcion;
+    public InscripcionDTO() {
     }
 
-    // Getters y Setters
-    public String getNombreEstudiante() { return nombreEstudiante; }
-    public void setNombreEstudiante(String nombreEstudiante) { this.nombreEstudiante = nombreEstudiante; }
+    public InscripcionDTO(CursoDTO curso, int año, int semestre, EstudianteDTO estudiante) {
+        this.curso = curso;
+        this.año = año;
+        this.semestre = semestre;
+        this.estudiante = estudiante;
+    }
 
-    public String getNombreCurso() { return nombreCurso; }
-    public void setNombreCurso(String nombreCurso) { this.nombreCurso = nombreCurso; }
+    public CursoDTO getCurso() {
+        return curso;
+    }
 
-    public LocalDate getFechaInscripcion() { return fechaInscripcion; }
-    public void setFechaInscripcion(LocalDate fechaInscripcion) { this.fechaInscripcion = fechaInscripcion; }
+    public void setCurso(CursoDTO curso) {
+        this.curso = curso;
+    }
+
+    public int getAño() {
+        return año;
+    }
+
+    public void setAño(int año) {
+        this.año = año;
+    }
+
+    public int getSemestre() {
+        return semestre;
+    }
+
+    public void setSemestre(int semestre) {
+        this.semestre = semestre;
+    }
+
+    public EstudianteDTO getEstudiante() {
+        return estudiante;
+    }
+
+    public void setEstudiante(EstudianteDTO estudiante) {
+        this.estudiante = estudiante;
+    }
+    
+    
+
 }
 

@@ -5,6 +5,8 @@
 package com.mycompany.aplicacionpoo.Factory.Impl;
 
 import com.mycompany.aplicacionpoo.Factory.Factory;
+import com.mycompany.aplicacionpoo.Model.Curso;
+import com.mycompany.aplicacionpoo.Model.Estudiante;
 import com.mycompany.aplicacionpoo.Model.Inscripcion;
 
 /**
@@ -14,7 +16,11 @@ import com.mycompany.aplicacionpoo.Model.Inscripcion;
 public class InscripcionFactory implements Factory{
     
     @Override
-    public Object crear(){
+    public Object crearVacio(){
         return new Inscripcion();
+    }
+    
+    public Inscripcion crear(Curso curso, int año, int semestre, Estudiante estudiante){
+        return new Inscripcion(curso, año, semestre, estudiante);
     }
 }

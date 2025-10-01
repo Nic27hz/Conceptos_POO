@@ -5,6 +5,7 @@
 package com.mycompany.aplicacionpoo.View;
 
 import com.mycompany.aplicacionpoo.Controller.FacultadController;
+import com.mycompany.aplicacionpoo.DTO.FacultadDTO;
 import com.mycompany.aplicacionpoo.Model.Facultad;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -25,18 +26,18 @@ public class FacultadView extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         FacultadController facultadController = new FacultadController();
-        List<Facultad> facultad = facultadController.mostrarFacultad();
+        List<FacultadDTO> facultad = facultadController.mostrarFacultad();
         mostrarFacultadEnTabla(facultad);
     }
     
-    private void mostrarFacultadEnTabla(List<Facultad> facultad) {
+    private void mostrarFacultadEnTabla(List<FacultadDTO> facultad) {
     DefaultTableModel modelo = new DefaultTableModel();
     modelo.addColumn("Id");
     modelo.addColumn("Facultad");
     modelo.addColumn("Id Decano");
     modelo.addColumn("Nombre");
 
-    for (Facultad p : facultad) {
+    for (FacultadDTO p : facultad) {
         modelo.addRow(new Object[]{ p.getId(), p.getNombre(), p.getDecano().getId(), p.getDecano().getNombres() });
     }
 
@@ -266,7 +267,7 @@ public class FacultadView extends javax.swing.JFrame {
             
             FacultadController f = new FacultadController();
             f.agregarFacultad(id, nombre, idDecano);
-            List<Facultad> facultad = f.mostrarFacultad();
+            List<FacultadDTO> facultad = f.mostrarFacultad();
             mostrarFacultadEnTabla(facultad);
         }
     }//GEN-LAST:event_guardarActionPerformed
@@ -285,7 +286,7 @@ public class FacultadView extends javax.swing.JFrame {
             
             FacultadController f = new FacultadController();
             f.actualizarFacultad(id, nombre, idDecano);
-            List<Facultad> facultad = f.mostrarFacultad();
+            List<FacultadDTO> facultad = f.mostrarFacultad();
             mostrarFacultadEnTabla(facultad);
         }
     }//GEN-LAST:event_actualizarActionPerformed
@@ -299,7 +300,7 @@ public class FacultadView extends javax.swing.JFrame {
             int id = Integer.parseInt(idtexto);
             FacultadController f = new FacultadController();
             f.eliminarFacultad(id);
-            List<Facultad> lista = f.mostrarFacultad();
+            List<FacultadDTO> lista = f.mostrarFacultad();
             mostrarFacultadEnTabla(lista);
         }
     }//GEN-LAST:event_EliminarActionPerformed
@@ -316,7 +317,7 @@ public class FacultadView extends javax.swing.JFrame {
         }else{
             int id = Integer.parseInt(idtexto);
             FacultadController f = new FacultadController();
-            Facultad facultad = f.buscarFacultad(id);
+            FacultadDTO facultad = f.buscarFacultad(id);
             if(facultad == null){
                 JOptionPane.showMessageDialog(null, "No se encontró facultad con ese id");
             }else{

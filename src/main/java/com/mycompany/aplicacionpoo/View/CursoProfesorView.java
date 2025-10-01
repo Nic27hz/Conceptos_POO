@@ -5,7 +5,7 @@
 package com.mycompany.aplicacionpoo.View;
 
 import com.mycompany.aplicacionpoo.Controller.CursoProfesorController;
-import com.mycompany.aplicacionpoo.Model.CursoProfesor;
+import com.mycompany.aplicacionpoo.DTO.CursoProfesorDTO;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -25,11 +25,11 @@ public class CursoProfesorView extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         CursoProfesorController cp = new CursoProfesorController();
-        List<CursoProfesor> lista = cp.mostrarCursoProfesores();
+        List<CursoProfesorDTO> lista = cp.mostrarCursoProfesores();
         mostrarCursoProfesorEnTabla(lista);
     }
     
-    private void mostrarCursoProfesorEnTabla(List<CursoProfesor> cursoProfesor){
+    private void mostrarCursoProfesorEnTabla(List<CursoProfesorDTO> cursoProfesor){
         DefaultTableModel modelo = new DefaultTableModel();
                 
         modelo.addColumn("Año");
@@ -39,7 +39,7 @@ public class CursoProfesorView extends javax.swing.JFrame {
         modelo.addColumn("Id");
         modelo.addColumn("Curso");
         
-        for(CursoProfesor cp : cursoProfesor){
+        for(CursoProfesorDTO cp : cursoProfesor){
             modelo.addRow(new Object[] { cp.getAño(), cp.getSemestre(), cp.getProfesor().getId(), cp.getProfesor().getNombres(), cp.getCurso().getId(), cp.getCurso().getNombre() });
         }
         
@@ -288,7 +288,7 @@ public class CursoProfesorView extends javax.swing.JFrame {
             CursoProfesorController cp = new CursoProfesorController();
             
             cp.agregarCursoProfesor(año, semestre, idProfesor, idCurso);
-            List<CursoProfesor> lista = cp.mostrarCursoProfesores();
+            List<CursoProfesorDTO> lista = cp.mostrarCursoProfesores();
             mostrarCursoProfesorEnTabla(lista);
         }
     }//GEN-LAST:event_guardarActionPerformed
@@ -312,7 +312,7 @@ public class CursoProfesorView extends javax.swing.JFrame {
             CursoProfesorController cp = new CursoProfesorController();
             
             cp.actualizarCursoProfesor(año, semestre, idProfesor, idCurso);
-            List<CursoProfesor> lista = cp.mostrarCursoProfesores();
+            List<CursoProfesorDTO> lista = cp.mostrarCursoProfesores();
             mostrarCursoProfesorEnTabla(lista);
         }
     }//GEN-LAST:event_actualizarActionPerformed
@@ -349,7 +349,7 @@ public class CursoProfesorView extends javax.swing.JFrame {
             CursoProfesorController cp = new CursoProfesorController();
             
             cp.eliminarCursoProfesor(idProfesor, idCurso);
-            List<CursoProfesor> lista = cp.mostrarCursoProfesores();
+            List<CursoProfesorDTO> lista = cp.mostrarCursoProfesores();
             mostrarCursoProfesorEnTabla(lista);
         }
     }//GEN-LAST:event_eliminarActionPerformed
@@ -367,7 +367,7 @@ public class CursoProfesorView extends javax.swing.JFrame {
             
             CursoProfesorController cp = new CursoProfesorController();
             
-            CursoProfesor c = cp.buscarCursoProfesor(idProfesor, idCurso);
+            CursoProfesorDTO c = cp.buscarCursoProfesor(idProfesor, idCurso);
             String  cursoprofesor ="\nAño: " + c.getAño() +
                                  "\nSemestre: " + c.getSemestre() +
                                  "\nProfesor: " + c.getProfesor().getNombres() +

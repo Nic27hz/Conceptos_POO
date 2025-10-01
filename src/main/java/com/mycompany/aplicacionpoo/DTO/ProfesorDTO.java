@@ -9,14 +9,13 @@ public class ProfesorDTO extends PersonaDTO {
     private String tipoContrato;
 
     public ProfesorDTO(double id, String nombres, String apellidos, String email, String tipoContrato) {
-        super(id, nombres, apellidos, email, "profesor"); // el tipo se fija en "profesor"
+        super(id, nombres, apellidos, email, "profesor"); 
         this.tipoContrato = tipoContrato;
     }
 
     public ProfesorDTO() {
-        super();
-        super.setTipo("profesor"); // por defecto también se asegura que sea "profesor"
     }
+    
 
     public String getTipoContrato() {
         return tipoContrato;
