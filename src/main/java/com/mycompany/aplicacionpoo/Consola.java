@@ -75,9 +75,9 @@ public class Consola extends Thread {
         
         
         //Mostrar desde el base de datos lista de InscripcionesPersonas
-        for(Persona p: InscripcionesPersonas.mostrarInformacion()){
+        /*for(Persona p: InscripcionesPersonas.mostrarInformacion()){
             System.out.println(p);
-        }
+        }*/
         
     }
 }

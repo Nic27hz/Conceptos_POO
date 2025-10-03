@@ -1,6 +1,8 @@
 package com.mycompany.aplicacionpoo.Service.Impl;
 
-import com.mycompany.aplicacionpoo.Config.ConexionDB;
+import com.mycompany.aplicacionpoo.Config.Conexion;
+import com.mycompany.aplicacionpoo.Config.ConexionFactory;
+import com.mycompany.aplicacionpoo.Config.Singleton;
 import com.mycompany.aplicacionpoo.Service.FacultadDao;
 import com.mycompany.aplicacionpoo.Model.Facultad;
 import com.mycompany.aplicacionpoo.Model.Persona;
@@ -23,7 +25,8 @@ public class FacultadDaoImpl implements FacultadDao {
                      INNER JOIN facultad f ON p.id = f.decano_id;
                      """;
 
-        try (Connection conn = ConexionDB.conectar();
+        
+        try(Connection conn = Singleton.getInstance().getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql);
              ResultSet rs = stmt.executeQuery()) {
 
@@ -51,9 +54,10 @@ public class FacultadDaoImpl implements FacultadDao {
         String validarSql = "SELECT tipo FROM persona WHERE id = ?";
         String sql = "INSERT INTO facultad (id, nombre, decano_id) VALUES (?, ?, ?)";
 
-        try (Connection conn = ConexionDB.conectar()) {
+        
+        try(Connection conn = Singleton.getInstance().getConnection()) {
 
-            // Validar que el decano sea un profesor
+            
             try (PreparedStatement stmtValidar = conn.prepareStatement(validarSql)) {
                 stmtValidar.setInt(1, (int) facultad.getDecano().getId());
                 try (ResultSet rs = stmtValidar.executeQuery()) {
@@ -92,7 +96,7 @@ public class FacultadDaoImpl implements FacultadDao {
     public void actualizarFacultad(Facultad facultad) {
         String sql = "UPDATE facultad SET decano_id = ?, nombre = ? WHERE id = ?";
 
-        try (Connection conn = ConexionDB.conectar();
+        try(Connection conn = Singleton.getInstance().getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setInt(1, (int) facultad.getDecano().getId());
@@ -116,7 +120,8 @@ public class FacultadDaoImpl implements FacultadDao {
     public void eliminarFacultad(int id) {
         String sql = "DELETE FROM facultad WHERE id = ?";
 
-        try (Connection conn = ConexionDB.conectar();
+        
+        try(Connection conn = Singleton.getInstance().getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setInt(1, id);
@@ -144,7 +149,8 @@ public class FacultadDaoImpl implements FacultadDao {
                      WHERE f.id = ?;
                      """;
 
-        try (Connection conn = ConexionDB.conectar();
+        
+        try(Connection conn = Singleton.getInstance().getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setInt(1, id);

@@ -4,7 +4,8 @@
  */
 package com.mycompany.aplicacionpoo.Service.Impl;
 
-import com.mycompany.aplicacionpoo.Config.ConexionDB;
+
+import com.mycompany.aplicacionpoo.Config.Singleton;
 import com.mycompany.aplicacionpoo.Service.PersonaDao;
 import com.mycompany.aplicacionpoo.Model.Persona;
 import java.sql.Connection;
@@ -19,7 +20,8 @@ public class PersonaDaoImpl implements PersonaDao{
     public void guardarPersona(Persona persona) {
         String sql = "INSERT INTO persona (nombre, apellido, correo, tipo, id) values (?, ?, ?, ?, ?)";
 
-        try(Connection conn = ConexionDB.conectar();
+         
+        try(Connection conn = Singleton.getInstance().getConnection();
             PreparedStatement stmt = conn.prepareStatement(sql)){
 
             stmt.setString(1, persona.getNombres());
@@ -39,7 +41,8 @@ public class PersonaDaoImpl implements PersonaDao{
     public void eliminarPersona(int id) {
         String sql = "DELETE FROM persona WHERE id = ?";
 
-        try(Connection conn = ConexionDB.conectar();
+         
+        try(Connection conn = Singleton.getInstance().getConnection();
             PreparedStatement stmt = conn.prepareStatement(sql)){
 
             stmt.setInt(1, id);
@@ -54,7 +57,8 @@ public class PersonaDaoImpl implements PersonaDao{
     public void actualizarPersona(Persona persona) {
         String sql = "UPDATE persona SET nombre=?, apellido=?, correo=?, tipo=? WHERE id=?";
 
-        try(Connection conn = ConexionDB.conectar();
+         
+        try(Connection conn = Singleton.getInstance().getConnection();
             PreparedStatement stmt = conn.prepareStatement(sql)){
 
             stmt.setString(1, persona.getNombres());
@@ -75,7 +79,8 @@ public class PersonaDaoImpl implements PersonaDao{
         ArrayList<Persona> lista = new ArrayList<>();
         String sql = "SELECT * FROM persona";
 
-        try(Connection conn = ConexionDB.conectar();
+         
+        try(Connection conn = Singleton.getInstance().getConnection();
             PreparedStatement stmt = conn.prepareStatement(sql);
             ResultSet rs = stmt.executeQuery()){
 
@@ -99,7 +104,8 @@ public class PersonaDaoImpl implements PersonaDao{
     public Persona buscarPersona(int id) {
         String sql = "SELECT * FROM persona WHERE id=?";
 
-        try(Connection conn = ConexionDB.conectar();
+         
+        try(Connection conn = Singleton.getInstance().getConnection();
             PreparedStatement stmt = conn.prepareStatement(sql)){
 
             stmt.setInt(1, id);

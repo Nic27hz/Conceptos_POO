@@ -7,7 +7,6 @@ package com.mycompany.aplicacionpoo.Controller;
 import com.mycompany.aplicacionpoo.DTO.Mapper.ProfesorMapper;
 import com.mycompany.aplicacionpoo.DTO.ProfesorDTO;
 import com.mycompany.aplicacionpoo.Factory.Impl.DTO.ProfesorFactoryDTO;
-import com.mycompany.aplicacionpoo.Factory.Impl.ProfesorFactory;
 import com.mycompany.aplicacionpoo.Service.Impl.ProfesorDaoImpl;
 import com.mycompany.aplicacionpoo.Service.ProfesorDao;
 import com.mycompany.aplicacionpoo.Model.Profesor;

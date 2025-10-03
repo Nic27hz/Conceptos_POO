@@ -4,7 +4,10 @@
  */
 package com.mycompany.aplicacionpoo.Service.Impl;
 
-import com.mycompany.aplicacionpoo.Config.ConexionDB;
+
+import com.mycompany.aplicacionpoo.Config.Conexion;
+import com.mycompany.aplicacionpoo.Config.ConexionFactory;
+import com.mycompany.aplicacionpoo.Config.Singleton;
 import com.mycompany.aplicacionpoo.Service.EstudianteDao;
 import com.mycompany.aplicacionpoo.Model.Estudiante;
 import com.mycompany.aplicacionpoo.Model.Programa;
@@ -31,7 +34,8 @@ public class EstudianteDaoImpl implements EstudianteDao {
                      INNER JOIN programa p ON e.programa_id = p.id
                      """;
 
-        try (Connection conn = ConexionDB.conectar();
+        
+        try(Connection conn = Singleton.getInstance().getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql);
              ResultSet rs = stmt.executeQuery()) {
 
@@ -60,7 +64,8 @@ public class EstudianteDaoImpl implements EstudianteDao {
     public void agregarEstudiante(Estudiante estudiante) {
         String sql = "INSERT INTO estudiante (id, codigo, promedio, activo, programa_id) VALUES (?, ?, ?, ?, ?)";
 
-        try (Connection conn = ConexionDB.conectar();
+        
+        try(Connection conn = Singleton.getInstance().getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setDouble(1, estudiante.getId());
@@ -80,7 +85,7 @@ public class EstudianteDaoImpl implements EstudianteDao {
     public void eliminarEstudiante(double id) {
         String sql = "DELETE FROM estudiante WHERE id = ?";
 
-        try (Connection conn = ConexionDB.conectar();
+        try(Connection conn = Singleton.getInstance().getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setDouble(1, id);
@@ -101,7 +106,7 @@ public class EstudianteDaoImpl implements EstudianteDao {
                      WHERE e.id = ?
                      """;
 
-        try (Connection conn = ConexionDB.conectar();
+        try(Connection conn = Singleton.getInstance().getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setDouble(1, id);
@@ -132,7 +137,7 @@ public class EstudianteDaoImpl implements EstudianteDao {
     public void actualizarEstudiante(Estudiante estudiante) {
         String sql = "UPDATE estudiante SET codigo = ?, promedio = ?, activo = ?, programa_id = ? WHERE id = ?";
 
-        try (Connection conn = ConexionDB.conectar();
+        try(Connection conn = Singleton.getInstance().getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setDouble(1, estudiante.getCodigo());

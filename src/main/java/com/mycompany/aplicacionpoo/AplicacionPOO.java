@@ -11,12 +11,13 @@ package com.mycompany.aplicacionpoo;
 //Nicolás Orejuela Hernández 160004899 - Edward Alexis Murcia Rodriguez 160004825
 public class AplicacionPOO {
 
-    public static void main(String[] args){
+    public static void main(){
         
         //Consola consola = new Consola();
         Escritorio escritorio = new Escritorio();
         
         //consola.start();
         escritorio.start();
+       
     }
 }

@@ -1,6 +1,9 @@
 package com.mycompany.aplicacionpoo.Service.Impl;
 
-import com.mycompany.aplicacionpoo.Config.ConexionDB;
+
+import com.mycompany.aplicacionpoo.Config.Conexion;
+import com.mycompany.aplicacionpoo.Config.ConexionFactory;
+import com.mycompany.aplicacionpoo.Config.Singleton;
 import com.mycompany.aplicacionpoo.Service.CursoProfesorDao;
 import com.mycompany.aplicacionpoo.Model.Curso;
 import com.mycompany.aplicacionpoo.Model.CursoProfesor;
@@ -16,8 +19,10 @@ public class CursoProfesorDaoImpl implements CursoProfesorDao {
 
     @Override
     public void agregarCursoProfesor(CursoProfesor cp) {
-        String sql = "INSERT INTO curso_profesor (curso_id, profesor_id) VALUES (?, ?)";
-        try (Connection conn = ConexionDB.conectar();
+        String sql = "INSERT INTO cursoprofesor (curso_id, profesor_id) VALUES (?, ?)";
+        
+        
+        try(Connection conn = Singleton.getInstance().getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setInt(1, cp.getCurso().getId());
@@ -32,8 +37,9 @@ public class CursoProfesorDaoImpl implements CursoProfesorDao {
 
     @Override
     public void actualizarCursoProfesor(CursoProfesor cp) {
-        String sql = "UPDATE curso_profesor SET profesor_id = ? WHERE curso_id = ?";
-        try (Connection conn = ConexionDB.conectar();
+        String sql = "UPDATE cursoprofesor SET profesor_id = ? WHERE curso_id = ?";
+        
+        try(Connection conn = Singleton.getInstance().getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setDouble(1, cp.getProfesor().getId());
@@ -53,8 +59,10 @@ public class CursoProfesorDaoImpl implements CursoProfesorDao {
 
     @Override
     public void eliminarCursoProfesor(int idCurso, double idProfesor) {
-        String sql = "DELETE FROM curso_profesor WHERE curso_id = ? AND profesor_id = ?";
-        try (Connection conn = ConexionDB.conectar();
+        String sql = "DELETE FROM cursoprofesor WHERE curso_id = ? AND profesor_id = ?";
+        
+        
+        try(Connection conn = Singleton.getInstance().getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setInt(1, idCurso);
@@ -78,12 +86,13 @@ public class CursoProfesorDaoImpl implements CursoProfesorDao {
                      SELECT cp.curso_id, cp.profesor_id, 
                             c.nombre AS nombre_curso, 
                             p.nombre AS nombre_profesor
-                     FROM curso_profesor cp
+                     FROM cursoprofesor cp
                      INNER JOIN curso c ON cp.curso_id = c.id
                      INNER JOIN persona p ON cp.profesor_id = p.id
                      WHERE cp.curso_id = ? AND cp.profesor_id = ?
                      """;
-        try (Connection conn = ConexionDB.conectar();
+        
+        try(Connection conn = Singleton.getInstance().getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setInt(1, idCurso);
@@ -120,11 +129,12 @@ public class CursoProfesorDaoImpl implements CursoProfesorDao {
                      SELECT cp.curso_id, cp.profesor_id, 
                             c.nombre AS nombre_curso, 
                             p.nombre AS nombre_profesor
-                     FROM curso_profesor cp
+                     FROM cursoprofesor cp
                      INNER JOIN curso c ON cp.curso_id = c.id
                      INNER JOIN persona p ON cp.profesor_id = p.id
                      """;
-        try (Connection conn = ConexionDB.conectar();
+        
+        try(Connection conn = Singleton.getInstance().getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql);
              ResultSet rs = stmt.executeQuery()) {
 

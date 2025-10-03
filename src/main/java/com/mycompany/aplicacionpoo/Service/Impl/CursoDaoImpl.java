@@ -1,6 +1,9 @@
 package com.mycompany.aplicacionpoo.Service.Impl;
 
-import com.mycompany.aplicacionpoo.Config.ConexionDB;
+
+import com.mycompany.aplicacionpoo.Config.Conexion;
+import com.mycompany.aplicacionpoo.Config.ConexionFactory;
+import com.mycompany.aplicacionpoo.Config.Singleton;
 import com.mycompany.aplicacionpoo.Service.CursoDao;
 import com.mycompany.aplicacionpoo.Model.Curso;
 import com.mycompany.aplicacionpoo.Model.Programa;
@@ -24,7 +27,8 @@ public class CursoDaoImpl implements CursoDao {
                      INNER JOIN programa p ON c.programa_id = p.id;
                      """;
 
-        try (Connection conn = ConexionDB.conectar();
+        
+        try(Connection conn = Singleton.getInstance().getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql);
              ResultSet rs = stmt.executeQuery()) {
 
@@ -52,7 +56,8 @@ public class CursoDaoImpl implements CursoDao {
     public void agregarCurso(Curso curso) {
         String sql = "INSERT INTO curso (id, nombre, activo, programa_id) VALUES (?, ?, ?, ?)";
 
-        try (Connection conn = ConexionDB.conectar();
+        
+        try(Connection conn = Singleton.getInstance().getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setInt(1, curso.getId());
@@ -74,7 +79,7 @@ public class CursoDaoImpl implements CursoDao {
     public void eliminarCurso(int id) {
         String sql = "DELETE FROM curso WHERE id = ?";
 
-        try (Connection conn = ConexionDB.conectar();
+        try(Connection conn = Singleton.getInstance().getConnection();
              PreparedStatement stmt = conn.prepareCall(sql)) {
 
             stmt.setInt(1, id);
@@ -102,7 +107,8 @@ public class CursoDaoImpl implements CursoDao {
                      WHERE c.id = ?;
                      """;
 
-        try (Connection conn = ConexionDB.conectar();
+        
+        try(Connection conn = Singleton.getInstance().getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setInt(1, id);
@@ -136,7 +142,8 @@ public class CursoDaoImpl implements CursoDao {
     public void actualizarCurso(Curso curso) {
         String sql = "UPDATE curso SET nombre = ?, activo = ?, programa_id = ? WHERE id = ?";
 
-        try (Connection conn = ConexionDB.conectar();
+        Conexion adapter = ConexionFactory.getConexion();
+        try(Connection conn = adapter.conectar();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setString(1, curso.getNombre());

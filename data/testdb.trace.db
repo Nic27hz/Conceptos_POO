@@ -2768,3 +2768,13 @@ inner join persona pe on i.profesor_id = pe.id
 inner join curso c on i.curso_id = c.id
 where i.profesor_id = ? and i.curso_id = ?
  [42000-224]
+2025-10-02 18:59:36.405589-05:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "CURSO_PROFESOR" no encontrada
+Table "CURSO_PROFESOR" not found; SQL statement:
+SELECT cp.curso_id, cp.profesor_id,
+       c.nombre AS nombre_curso,
+       p.nombre AS nombre_profesor
+FROM curso_profesor cp
+INNER JOIN curso c ON cp.curso_id = c.id
+INNER JOIN persona p ON cp.profesor_id = p.id
+ [42102-224]

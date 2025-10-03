@@ -5,7 +5,7 @@
 package com.mycompany.aplicacionpoo.Model;
 
 
-import com.mycompany.aplicacionpoo.Config.ConexionDB;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -74,7 +74,7 @@ public class CursosProfesores implements Servicios{
         
         String sql = "INSERT INTO cursoProfesor (curso_id, profesor_id, anio, semestre) values (?,?,?,?)";
         
-        try(Connection conn = ConexionDB.conectar();
+        try(Connection conn = (Connection) ConexionFactory.getConexion();
             PreparedStatement stmt = conn.prepareStatement(sql)){
             stmt.setInt(1, cp.getCurso().getId());
             stmt.setInt(2, (int) cp.getProfesor().getId());

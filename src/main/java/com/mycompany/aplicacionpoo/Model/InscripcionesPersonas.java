@@ -5,7 +5,8 @@
 package com.mycompany.aplicacionpoo.Model;
 
 
-import com.mycompany.aplicacionpoo.Config.ConexionDB;
+import com.mycompany.aplicacionpoo.Config.Conexion;
+import com.mycompany.aplicacionpoo.Config.ConexionFactory;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -81,7 +82,8 @@ public class InscripcionesPersonas {
     public void guardarInformacion(Persona persona){
         String sql = "INSERT INTO persona (nombre, apellido, correo, tipo, id) values (?, ?, ?, ?, ?)";
         
-        try(Connection conn = ConexionDB.conectar();
+        Conexion adapter = ConexionFactory.getConexion();
+        try(Connection conn =  adapter.conectar();
             PreparedStatement stmt = conn.prepareStatement(sql)){
             
             stmt.setString(1, persona.getNombres());
@@ -101,12 +103,13 @@ public class InscripcionesPersonas {
         }
     }
     
-    public static ArrayList<Persona> mostrarInformacion(){
+    public static ArrayList<Persona> mostrarInformacion() throws SQLException{
         ArrayList<Persona> listaInfo = new ArrayList<>();
         
         String sql = "SELECT * FROM persona";
         
-        try(Connection conn = ConexionDB.conectar();
+        Conexion adapter = ConexionFactory.getConexion();
+        try(Connection conn = adapter.conectar();
             PreparedStatement stmt = conn.prepareStatement(sql);
             ResultSet rs = stmt.executeQuery()){
             
