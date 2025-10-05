@@ -19,7 +19,7 @@ public class ConexionFactory {
             String motor = props.getProperty("motor");
 
             if (motor == null) {
-                throw new RuntimeException("No se ha definido el motor en db.properties");
+                throw new RuntimeException("No se ha definido el motor en DataBse.properties");
             }
 
             switch (motor.toLowerCase()) {

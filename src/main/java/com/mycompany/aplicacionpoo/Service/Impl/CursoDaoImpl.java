@@ -1,8 +1,6 @@
 package com.mycompany.aplicacionpoo.Service.Impl;
 
 
-import com.mycompany.aplicacionpoo.Config.Conexion;
-import com.mycompany.aplicacionpoo.Config.ConexionFactory;
 import com.mycompany.aplicacionpoo.Config.Singleton;
 import com.mycompany.aplicacionpoo.Service.CursoDao;
 import com.mycompany.aplicacionpoo.Model.Curso;
@@ -27,9 +25,8 @@ public class CursoDaoImpl implements CursoDao {
                      INNER JOIN programa p ON c.programa_id = p.id;
                      """;
 
-        
-        try(Connection conn = Singleton.getInstance().getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql);
+        Connection conn = Singleton.getInstance().getConnection();
+        try(PreparedStatement stmt = conn.prepareStatement(sql);
              ResultSet rs = stmt.executeQuery()) {
 
             while (rs.next()) {
@@ -56,9 +53,9 @@ public class CursoDaoImpl implements CursoDao {
     public void agregarCurso(Curso curso) {
         String sql = "INSERT INTO curso (id, nombre, activo, programa_id) VALUES (?, ?, ?, ?)";
 
-        
-        try(Connection conn = Singleton.getInstance().getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
+        Connection conn = Singleton.getInstance().getConnection();
+
+        try(PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setInt(1, curso.getId());
             stmt.setString(2, curso.getNombre());
@@ -78,9 +75,10 @@ public class CursoDaoImpl implements CursoDao {
     @Override
     public void eliminarCurso(int id) {
         String sql = "DELETE FROM curso WHERE id = ?";
+        
+        Connection conn = Singleton.getInstance().getConnection();
 
-        try(Connection conn = Singleton.getInstance().getConnection();
-             PreparedStatement stmt = conn.prepareCall(sql)) {
+        try(PreparedStatement stmt = conn.prepareCall(sql)) {
 
             stmt.setInt(1, id);
 
@@ -107,9 +105,9 @@ public class CursoDaoImpl implements CursoDao {
                      WHERE c.id = ?;
                      """;
 
-        
-        try(Connection conn = Singleton.getInstance().getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
+        Connection conn = Singleton.getInstance().getConnection();
+
+        try(PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setInt(1, id);
             ResultSet rs = stmt.executeQuery();
@@ -142,9 +140,9 @@ public class CursoDaoImpl implements CursoDao {
     public void actualizarCurso(Curso curso) {
         String sql = "UPDATE curso SET nombre = ?, activo = ?, programa_id = ? WHERE id = ?";
 
-        Conexion adapter = ConexionFactory.getConexion();
-        try(Connection conn = adapter.conectar();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
+        Connection conn = Singleton.getInstance().getConnection();
+
+        try(PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setString(1, curso.getNombre());
             stmt.setBoolean(2, curso.isActivo());

@@ -25,9 +25,9 @@ public class FacultadDaoImpl implements FacultadDao {
                      INNER JOIN facultad f ON p.id = f.decano_id;
                      """;
 
-        
-        try(Connection conn = Singleton.getInstance().getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql);
+        Connection conn = Singleton.getInstance().getConnection();
+
+        try(PreparedStatement stmt = conn.prepareStatement(sql);
              ResultSet rs = stmt.executeQuery()) {
 
             while (rs.next()) {
@@ -54,10 +54,9 @@ public class FacultadDaoImpl implements FacultadDao {
         String validarSql = "SELECT tipo FROM persona WHERE id = ?";
         String sql = "INSERT INTO facultad (id, nombre, decano_id) VALUES (?, ?, ?)";
 
-        
-        try(Connection conn = Singleton.getInstance().getConnection()) {
+        Connection conn = Singleton.getInstance().getConnection();
 
-            
+        try{            
             try (PreparedStatement stmtValidar = conn.prepareStatement(validarSql)) {
                 stmtValidar.setInt(1, (int) facultad.getDecano().getId());
                 try (ResultSet rs = stmtValidar.executeQuery()) {
@@ -96,8 +95,9 @@ public class FacultadDaoImpl implements FacultadDao {
     public void actualizarFacultad(Facultad facultad) {
         String sql = "UPDATE facultad SET decano_id = ?, nombre = ? WHERE id = ?";
 
-        try(Connection conn = Singleton.getInstance().getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
+        Connection conn = Singleton.getInstance().getConnection();
+
+        try(PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setInt(1, (int) facultad.getDecano().getId());
             stmt.setString(2, facultad.getNombre());
@@ -121,8 +121,9 @@ public class FacultadDaoImpl implements FacultadDao {
         String sql = "DELETE FROM facultad WHERE id = ?";
 
         
-        try(Connection conn = Singleton.getInstance().getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
+        Connection conn = Singleton.getInstance().getConnection();
+
+        try(PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setInt(1, id);
 
@@ -149,9 +150,9 @@ public class FacultadDaoImpl implements FacultadDao {
                      WHERE f.id = ?;
                      """;
 
-        
-        try(Connection conn = Singleton.getInstance().getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
+        Connection conn = Singleton.getInstance().getConnection();
+
+        try(PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setInt(1, id);
             ResultSet rs = stmt.executeQuery();

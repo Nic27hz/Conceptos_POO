@@ -27,9 +27,9 @@ public class InscripcionDaoImpl implements InscripcionDao {
     public void agregarInscripcion(Inscripcion inscripcion) {
         String sql = "INSERT INTO inscripcion (anio, semestre, estudiante_id, curso_id) VALUES (?, ?, ?, ?)";
         
-        
-        try(Connection conn = Singleton.getInstance().getConnection();
-            PreparedStatement stmt = conn.prepareStatement(sql)) {
+        Connection conn = Singleton.getInstance().getConnection();
+
+        try(PreparedStatement stmt = conn.prepareStatement(sql)) {
             
             stmt.setInt(1, inscripcion.getAño());
             stmt.setInt(2, inscripcion.getSemestre());
@@ -50,9 +50,9 @@ public class InscripcionDaoImpl implements InscripcionDao {
     public void actualizarInscripcion(Inscripcion inscripcion) {
         String sql = "UPDATE inscripcion SET anio = ?, semestre = ? WHERE estudiante_id = ? AND curso_id = ?";
         
-        
-        try(Connection conn = Singleton.getInstance().getConnection();
-            PreparedStatement stmt = conn.prepareStatement(sql)) {
+        Connection conn = Singleton.getInstance().getConnection();
+
+        try(PreparedStatement stmt = conn.prepareStatement(sql)) {
             
             stmt.setInt(1, inscripcion.getAño());
             stmt.setInt(2, inscripcion.getSemestre());
@@ -76,9 +76,9 @@ public class InscripcionDaoImpl implements InscripcionDao {
     public void eliminarInscripcion(double idEstudiante, int idCurso) {
         String sql = "DELETE FROM inscripcion WHERE estudiante_id = ? AND curso_id = ?";
         
-        
-        try(Connection conn = Singleton.getInstance().getConnection();
-            PreparedStatement stmt = conn.prepareStatement(sql)) {
+        Connection conn = Singleton.getInstance().getConnection();
+
+        try(PreparedStatement stmt = conn.prepareStatement(sql)) {
             
             stmt.setDouble(1, idEstudiante);
             stmt.setInt(2, idCurso);
@@ -109,9 +109,9 @@ public class InscripcionDaoImpl implements InscripcionDao {
                      WHERE i.estudiante_id = ? AND i.curso_id = ?
                      """;
         
-         
-        try(Connection conn = Singleton.getInstance().getConnection();
-            PreparedStatement stmt = conn.prepareStatement(sql)) {
+        Connection conn = Singleton.getInstance().getConnection();
+
+        try(PreparedStatement stmt = conn.prepareStatement(sql)) {
             
             stmt.setDouble(1, idEstudiante);
             stmt.setInt(2, idCurso);
@@ -155,9 +155,9 @@ public class InscripcionDaoImpl implements InscripcionDao {
                      INNER JOIN curso c ON i.curso_id = c.id
                      """;
         
-         
-        try(Connection conn = Singleton.getInstance().getConnection();
-            PreparedStatement stmt = conn.prepareStatement(sql);
+        Connection conn = Singleton.getInstance().getConnection();
+
+        try(PreparedStatement stmt = conn.prepareStatement(sql);
             ResultSet rs = stmt.executeQuery()) {
             
             while(rs.next()){

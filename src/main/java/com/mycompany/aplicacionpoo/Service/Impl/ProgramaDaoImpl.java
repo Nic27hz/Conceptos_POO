@@ -22,9 +22,9 @@ public class ProgramaDaoImpl implements ProgramaDao {
     @Override
     public void guardarPrograma(Programa programa) {
         String sql = "INSERT INTO programa (id, nombre) VALUES (?, ?)";
-        
-         try(Connection conn = Singleton.getInstance().getConnection();
-            PreparedStatement stmt = conn.prepareStatement(sql)) {
+        Connection conn = Singleton.getInstance().getConnection();
+
+         try(PreparedStatement stmt = conn.prepareStatement(sql)) {
             
             stmt.setInt(1, (int) programa.getId());
             stmt.setString(2, programa.getNombre());
@@ -40,8 +40,9 @@ public class ProgramaDaoImpl implements ProgramaDao {
     public void actualizarPrograma(Programa programa) {
         String sql = "UPDATE programa SET nombre = ? WHERE id = ?";
         
-         try(Connection conn = Singleton.getInstance().getConnection();
-            PreparedStatement stmt = conn.prepareStatement(sql)) {
+        Connection conn = Singleton.getInstance().getConnection();
+
+         try(PreparedStatement stmt = conn.prepareStatement(sql)) {
             
             stmt.setString(1, programa.getNombre());
             stmt.setInt(2, (int) programa.getId());
@@ -61,8 +62,9 @@ public class ProgramaDaoImpl implements ProgramaDao {
     public void eliminarPrograma(double id) {
         String sql = "DELETE FROM programa WHERE id = ?";
         
-         try(Connection conn = Singleton.getInstance().getConnection();
-            PreparedStatement stmt = conn.prepareStatement(sql)) {
+        Connection conn = Singleton.getInstance().getConnection();
+
+         try(PreparedStatement stmt = conn.prepareStatement(sql)) {
             
             stmt.setInt(1, (int) id);
             
@@ -81,8 +83,9 @@ public class ProgramaDaoImpl implements ProgramaDao {
     public Programa buscarPrograma(double id) {
         String sql = "SELECT id, nombre FROM programa WHERE id = ?";
         
-         try(Connection conn = Singleton.getInstance().getConnection();
-            PreparedStatement stmt = conn.prepareStatement(sql)) {
+        Connection conn = Singleton.getInstance().getConnection();
+
+         try(PreparedStatement stmt = conn.prepareStatement(sql)) {
             
             stmt.setInt(1, (int) id);
             ResultSet rs = stmt.executeQuery();
@@ -106,8 +109,9 @@ public class ProgramaDaoImpl implements ProgramaDao {
         ArrayList<Programa> lista = new ArrayList<>();
         String sql = "SELECT id, nombre FROM programa";
         
-         try(Connection conn = Singleton.getInstance().getConnection();
-            PreparedStatement stmt = conn.prepareStatement(sql);
+        Connection conn = Singleton.getInstance().getConnection();
+
+         try(PreparedStatement stmt = conn.prepareStatement(sql);
             ResultSet rs = stmt.executeQuery()) {
             
             while(rs.next()) {

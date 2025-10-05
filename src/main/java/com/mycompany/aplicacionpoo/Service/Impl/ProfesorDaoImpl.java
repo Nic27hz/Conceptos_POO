@@ -1,8 +1,7 @@
 package com.mycompany.aplicacionpoo.Service.Impl;
 
 
-import com.mycompany.aplicacionpoo.Config.Conexion;
-import com.mycompany.aplicacionpoo.Config.ConexionFactory;
+
 import com.mycompany.aplicacionpoo.Config.Singleton;
 import com.mycompany.aplicacionpoo.Service.ProfesorDao;
 import com.mycompany.aplicacionpoo.Model.Profesor;
@@ -19,9 +18,9 @@ public class ProfesorDaoImpl implements ProfesorDao {
         String validarSql = "SELECT tipo FROM persona WHERE id = ?";
         String sql = "INSERT INTO profesor (id, tipo_contrato) VALUES (?, ?)";
 
-         
-        try(Connection conn = Singleton.getInstance().getConnection()) {
-            
+        Connection conn = Singleton.getInstance().getConnection();
+
+        try{            
             try (PreparedStatement stmtValidar = conn.prepareStatement(validarSql)) {
                 stmtValidar.setInt(1, (int) profesor.getId());
                 try (ResultSet rs = stmtValidar.executeQuery()) {
@@ -53,9 +52,9 @@ public class ProfesorDaoImpl implements ProfesorDao {
     public void actualizarProfesor(Profesor profesor) {
         String sql = "UPDATE profesor SET tipo_contrato = ? WHERE id = ?";
 
-         
-        try(Connection conn = Singleton.getInstance().getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
+        Connection conn = Singleton.getInstance().getConnection();
+
+        try(PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setString(1, profesor.getTipoContrato());
             stmt.setInt(2, (int) profesor.getId());
@@ -70,9 +69,10 @@ public class ProfesorDaoImpl implements ProfesorDao {
     @Override
     public void eliminarProfesor(int id) {
         String sql = "DELETE FROM profesor WHERE id = ?";
+ 
+        Connection conn = Singleton.getInstance().getConnection();
 
-         try(Connection conn = Singleton.getInstance().getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
+        try(PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setInt(1, id);
             int filas = stmt.executeUpdate();
@@ -93,8 +93,9 @@ public class ProfesorDaoImpl implements ProfesorDao {
                      INNER JOIN profesor pr ON p.id = pr.id
                      """;
 
-         try(Connection conn = Singleton.getInstance().getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql);
+        Connection conn = Singleton.getInstance().getConnection();
+
+         try(PreparedStatement stmt = conn.prepareStatement(sql);
              ResultSet rs = stmt.executeQuery()) {
 
             while (rs.next()) {
@@ -123,8 +124,9 @@ public class ProfesorDaoImpl implements ProfesorDao {
                      WHERE p.id = ?
                      """;
 
-         try(Connection conn = Singleton.getInstance().getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
+        Connection conn = Singleton.getInstance().getConnection();
+
+         try(PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setInt(1, id);
             ResultSet rs = stmt.executeQuery();

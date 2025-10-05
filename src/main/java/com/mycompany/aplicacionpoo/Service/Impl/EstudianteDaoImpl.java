@@ -34,9 +34,9 @@ public class EstudianteDaoImpl implements EstudianteDao {
                      INNER JOIN programa p ON e.programa_id = p.id
                      """;
 
-        
-        try(Connection conn = Singleton.getInstance().getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql);
+        Connection conn = Singleton.getInstance().getConnection();
+
+        try(PreparedStatement stmt = conn.prepareStatement(sql);
              ResultSet rs = stmt.executeQuery()) {
 
             while (rs.next()) {
@@ -64,9 +64,9 @@ public class EstudianteDaoImpl implements EstudianteDao {
     public void agregarEstudiante(Estudiante estudiante) {
         String sql = "INSERT INTO estudiante (id, codigo, promedio, activo, programa_id) VALUES (?, ?, ?, ?, ?)";
 
-        
-        try(Connection conn = Singleton.getInstance().getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
+        Connection conn = Singleton.getInstance().getConnection();
+
+        try(PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setDouble(1, estudiante.getId());
             stmt.setDouble(2, estudiante.getCodigo());
@@ -84,9 +84,10 @@ public class EstudianteDaoImpl implements EstudianteDao {
     @Override
     public void eliminarEstudiante(double id) {
         String sql = "DELETE FROM estudiante WHERE id = ?";
+        
+        Connection conn = Singleton.getInstance().getConnection();
 
-        try(Connection conn = Singleton.getInstance().getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
+        try(PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setDouble(1, id);
             stmt.executeUpdate();
@@ -106,8 +107,9 @@ public class EstudianteDaoImpl implements EstudianteDao {
                      WHERE e.id = ?
                      """;
 
-        try(Connection conn = Singleton.getInstance().getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
+        Connection conn = Singleton.getInstance().getConnection();
+
+        try(PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setDouble(1, id);
             ResultSet rs = stmt.executeQuery();
@@ -137,8 +139,9 @@ public class EstudianteDaoImpl implements EstudianteDao {
     public void actualizarEstudiante(Estudiante estudiante) {
         String sql = "UPDATE estudiante SET codigo = ?, promedio = ?, activo = ?, programa_id = ? WHERE id = ?";
 
-        try(Connection conn = Singleton.getInstance().getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
+        Connection conn = Singleton.getInstance().getConnection();
+
+        try(PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setDouble(1, estudiante.getCodigo());
             stmt.setDouble(2, estudiante.getPromedio());
