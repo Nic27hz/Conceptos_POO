@@ -6,16 +6,14 @@ import com.mycompany.aplicacionpoo.DTO.InscripcionDTO;
 import com.mycompany.aplicacionpoo.DTO.Mapper.InscripcionMapper;
 import com.mycompany.aplicacionpoo.Service.InscripcionDao;
 import com.mycompany.aplicacionpoo.Service.Impl.InscripcionDaoImpl;
-import com.mycompany.aplicacionpoo.Factory.Impl.CursoFactory;
+
 import com.mycompany.aplicacionpoo.Factory.Impl.DTO.CursoFactoryDTO;
 import com.mycompany.aplicacionpoo.Factory.Impl.DTO.EstudianteFactoryDTO;
 import com.mycompany.aplicacionpoo.Factory.Impl.DTO.InscripcionFactoryDTO;
-import com.mycompany.aplicacionpoo.Factory.Impl.EstudianteFactory;
-import com.mycompany.aplicacionpoo.Factory.Impl.InscripcionFactory;
-import com.mycompany.aplicacionpoo.Model.Curso;
-import com.mycompany.aplicacionpoo.Model.Estudiante;
+
 import com.mycompany.aplicacionpoo.Model.Inscripcion;
-import java.util.ArrayList;
+import com.mycompany.aplicacionpoo.Observer.Impl.InscripcionObserver;
+
 import java.util.List;
 
 /**
@@ -46,6 +44,8 @@ public class InscripcionController {
         Inscripcion inscripcion = InscripcionMapper.toEntity(inscripciondto);
         
         inscripcionDao.agregarInscripcion(inscripcion);
+        inscripcion.agregarObservador(new InscripcionObserver("Observador Inscripcion: "));
+        inscripcion.notificar("Se inscribio Estudiante " + inscripcion.getEstudiante().getNombres() + " al curso " + inscripcion.getCurso().getNombre());
     }
 
     public void actualizarInscripcion(int año, int semestre, double idEstudiante, int idCurso) {
@@ -59,10 +59,26 @@ public class InscripcionController {
         Inscripcion inscripcion = InscripcionMapper.toEntity(inscripciondto);
         
         inscripcionDao.actualizarInscripcion(inscripcion);
+        inscripcion.agregarObservador(new InscripcionObserver("Observador Inscripcion: "));
+        inscripcion.notificar("Se actualizó la inscripción");
     }
     
     public void eliminarInscripcion(double idEstudiante, int idCurso){
-        inscripcionDao.eliminarInscripcion(idEstudiante, idCurso);
+        EstudianteDTO estudiante = (EstudianteDTO) estudianteFactory.crearVacio();
+        estudiante.setId(idEstudiante);
+        
+        CursoDTO curso = (CursoDTO) cursoFactory.crearVacio();
+        curso.setId(idCurso);
+        
+        InscripcionDTO inscripciondto = (InscripcionDTO) inscripcionFactory.crearVacio();
+        inscripciondto.setEstudiante(estudiante);
+        inscripciondto.setCurso(curso);
+        
+        Inscripcion inscripcion = InscripcionMapper.toEntity(inscripciondto);
+        
+        inscripcionDao.eliminarInscripcion(inscripcion);
+        inscripcion.agregarObservador(new InscripcionObserver("Observador Inscripcion: "));
+        inscripcion.notificar("Se eliminó Inscripcion de estudiante " + inscripcion.getEstudiante().getNombres() + " del curso " + inscripcion.getCurso().getNombre());
     }
     
     public InscripcionDTO buscarInscripcion(double idEstudiante, int idCurso){

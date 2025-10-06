@@ -12,6 +12,7 @@ import com.mycompany.aplicacionpoo.Model.Curso;
 import com.mycompany.aplicacionpoo.DTO.CursoDTO;
 import com.mycompany.aplicacionpoo.Factory.Impl.DTO.CursoFactoryDTO;
 import com.mycompany.aplicacionpoo.Factory.Impl.DTO.ProgramaFactoryDTO;
+import com.mycompany.aplicacionpoo.Observer.Impl.CursoObserver;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,6 +42,8 @@ public class CursoController {
         Curso curso = CursoMapper.toEntity(dto);
 
         cursoDao.agregarCurso(curso);
+        curso.agregarObservador(new CursoObserver("obserador de curso: "));
+        curso.notificar("nuevo curso agregado: " + nombre);
     }
 
     public void actualizarCurso(int id, String nombre, boolean estado, double idPrograma) {
@@ -48,14 +51,24 @@ public class CursoController {
         dtop.setId(idPrograma);
         
         CursoDTO dto = cursoFactoryDTO.crear(id, nombre, dtop, estado);
-                
+                      
         Curso curso = CursoMapper.toEntity(dto);
 
         cursoDao.actualizarCurso(curso);
+        curso.agregarObservador(new CursoObserver("observador Curso: "));
+        curso.notificar("curso con Id: " + id + " actualizado");
     }
 
     public void eliminarCurso(int id) {
-        cursoDao.eliminarCurso(id);
+        
+        CursoDTO dto = (CursoDTO) cursoFactoryDTO.crearVacio();
+        dto.setId(id);
+               
+        Curso curso = CursoMapper.toEntity(dto);
+        
+        cursoDao.eliminarCurso(curso.getId());
+        curso.agregarObservador(new CursoObserver("observador Curso: "));
+        curso.notificar("Curso con Id: " + id + " eliminado");
     }
 
     public CursoDTO buscarCurso(int id) {

@@ -2,7 +2,7 @@ package com.mycompany.aplicacionpoo.Service.Impl;
 
 
 
-import com.mycompany.aplicacionpoo.Config.Singleton;
+import com.mycompany.aplicacionpoo.Singleton.Singleton;
 import com.mycompany.aplicacionpoo.Service.ProfesorDao;
 import com.mycompany.aplicacionpoo.Model.Profesor;
 import java.sql.Connection;
@@ -10,6 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 public class ProfesorDaoImpl implements ProfesorDao {
 
@@ -67,14 +68,14 @@ public class ProfesorDaoImpl implements ProfesorDao {
     }
 
     @Override
-    public void eliminarProfesor(int id) {
+    public void eliminarProfesor(Profesor profesor) {
         String sql = "DELETE FROM profesor WHERE id = ?";
  
         Connection conn = Singleton.getInstance().getConnection();
 
         try(PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-            stmt.setInt(1, id);
+            stmt.setInt(1, (int) profesor.getId());
             int filas = stmt.executeUpdate();
             
 
@@ -94,7 +95,7 @@ public class ProfesorDaoImpl implements ProfesorDao {
                      """;
 
         Connection conn = Singleton.getInstance().getConnection();
-
+        
          try(PreparedStatement stmt = conn.prepareStatement(sql);
              ResultSet rs = stmt.executeQuery()) {
 

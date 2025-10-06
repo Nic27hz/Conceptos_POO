@@ -4,6 +4,8 @@
 
 package com.mycompany.aplicacionpoo;
 
+import com.mycompany.aplicacionpoo.Observer.MensajeObservador;
+
 /**
  *
  * @author nicol

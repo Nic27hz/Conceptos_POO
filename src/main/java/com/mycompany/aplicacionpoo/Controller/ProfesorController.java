@@ -10,6 +10,7 @@ import com.mycompany.aplicacionpoo.Factory.Impl.DTO.ProfesorFactoryDTO;
 import com.mycompany.aplicacionpoo.Service.Impl.ProfesorDaoImpl;
 import com.mycompany.aplicacionpoo.Service.ProfesorDao;
 import com.mycompany.aplicacionpoo.Model.Profesor;
+import com.mycompany.aplicacionpoo.Observer.Impl.ProfesorObserver;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,6 +36,8 @@ public class ProfesorController {
 
         Profesor profesor = ProfesorMapper.toEntity(dto);
         profesorDao.agregarProfesor(profesor);
+        profesor.agregarObservador(new ProfesorObserver("Observar Profesor: "));
+        profesor.notificar("Se agregó un nuevo profesor: " + profesor.getNombres());
     }
 
     public void actualizarProfesor(int id, String tipoContrato) {
@@ -44,10 +47,18 @@ public class ProfesorController {
 
         Profesor profesor = ProfesorMapper.toEntity(dto);
         profesorDao.actualizarProfesor(profesor);
+        profesor.agregarObservador(new ProfesorObserver("Observar Profesor: "));
+        profesor.notificar("Se actualizó un profesor con ID: " + profesor.getId());
     }
 
     public void eliminarProfesor(int id) {
-        profesorDao.eliminarProfesor(id);
+        ProfesorDTO dto = (ProfesorDTO) profesorFactory.crearVacio();
+        dto.setId(id);
+
+        Profesor profesor = ProfesorMapper.toEntity(dto);
+        profesorDao.eliminarProfesor(profesor);
+        profesor.agregarObservador(new ProfesorObserver("Observar Profesor: "));
+        profesor.notificar("Se eliminó un profesor con ID: " + profesor.getId());
     }
 
     public ProfesorDTO buscarProfesor(int id) {

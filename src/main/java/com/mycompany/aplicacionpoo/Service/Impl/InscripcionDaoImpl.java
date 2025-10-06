@@ -3,9 +3,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package com.mycompany.aplicacionpoo.Service.Impl;
-import com.mycompany.aplicacionpoo.Config.Conexion;
-import com.mycompany.aplicacionpoo.Config.ConexionFactory;
-import com.mycompany.aplicacionpoo.Config.Singleton;
+
+import com.mycompany.aplicacionpoo.Singleton.Singleton;
 import com.mycompany.aplicacionpoo.Service.InscripcionDao;
 import com.mycompany.aplicacionpoo.Model.Curso;
 import com.mycompany.aplicacionpoo.Model.Estudiante;
@@ -73,15 +72,15 @@ public class InscripcionDaoImpl implements InscripcionDao {
     }
 
     @Override
-    public void eliminarInscripcion(double idEstudiante, int idCurso) {
+    public void eliminarInscripcion(Inscripcion inscripcion) {
         String sql = "DELETE FROM inscripcion WHERE estudiante_id = ? AND curso_id = ?";
         
         Connection conn = Singleton.getInstance().getConnection();
 
         try(PreparedStatement stmt = conn.prepareStatement(sql)) {
             
-            stmt.setDouble(1, idEstudiante);
-            stmt.setInt(2, idCurso);
+            stmt.setDouble(1, inscripcion.getEstudiante().getId());
+            stmt.setInt(2, inscripcion.getCurso().getId());
             
             int filas = stmt.executeUpdate();
             

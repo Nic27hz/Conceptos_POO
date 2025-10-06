@@ -13,7 +13,7 @@ import java.util.ArrayList;
 public interface InscripcionDao {
     void agregarInscripcion(Inscripcion inscripcion);
     void actualizarInscripcion(Inscripcion inscripcion);
-    void eliminarInscripcion(double idEstudiante, int id);
+    void eliminarInscripcion(Inscripcion inscripcion);
     Inscripcion buscarInscripcion(double idEstudiante, int id);
     ArrayList<Inscripcion> mostrarInscripciones();
 }

@@ -5,22 +5,14 @@
 package com.mycompany.aplicacionpoo.DTO;
 
 
-public class EstudianteDTO extends PersonaDTO {
+public class EstudianteDTO extends PersonaDTO{
     private double codigo;
     private ProgramaDTO programa;
     private boolean activo;
     private double promedio;
 
-    public EstudianteDTO(double codigo, ProgramaDTO programa, boolean activo, double promedio) {
-        this.codigo = codigo;
-        this.programa = programa;
-        this.activo = activo;
-        this.promedio = promedio;
-    }
-    
-    public EstudianteDTO(double id, String nombres, String apellidos, String email,
-                         double codigo, ProgramaDTO programa, boolean activo, double promedio) {
-        super(id, nombres, apellidos, email, "Estudiante");
+    public EstudianteDTO(PersonaDTO persona, double codigo, ProgramaDTO programa, boolean activo, double promedio) {
+        super(persona.getId(), persona.getNombres(), persona.getApellidos(), persona.getEmail(), persona.getTipo());
         this.codigo = codigo;
         this.programa = programa;
         this.activo = activo;

@@ -1,9 +1,9 @@
 package com.mycompany.aplicacionpoo.Service.Impl;
 
 
-import com.mycompany.aplicacionpoo.Config.Conexion;
-import com.mycompany.aplicacionpoo.Config.ConexionFactory;
-import com.mycompany.aplicacionpoo.Config.Singleton;
+import com.mycompany.aplicacionpoo.Singleton.Adapter.Conexion;
+import com.mycompany.aplicacionpoo.Singleton.Adapter.ConexionFactory;
+import com.mycompany.aplicacionpoo.Singleton.Singleton;
 import com.mycompany.aplicacionpoo.Service.CursoProfesorDao;
 import com.mycompany.aplicacionpoo.Model.Curso;
 import com.mycompany.aplicacionpoo.Model.CursoProfesor;
@@ -59,15 +59,15 @@ public class CursoProfesorDaoImpl implements CursoProfesorDao {
     }
 
     @Override
-    public void eliminarCursoProfesor(int idCurso, double idProfesor) {
+    public void eliminarCursoProfesor(CursoProfesor cursoProfesor) {
         String sql = "DELETE FROM cursoprofesor WHERE curso_id = ? AND profesor_id = ?";
         
         Connection conn = Singleton.getInstance().getConnection();
 
         try(PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-            stmt.setInt(1, idCurso);
-            stmt.setDouble(2, idProfesor);
+            stmt.setInt(1, cursoProfesor.getCurso().getId());
+            stmt.setDouble(2, cursoProfesor.getProfesor().getId());
             int filas = stmt.executeUpdate();
 
             if (filas > 0) {

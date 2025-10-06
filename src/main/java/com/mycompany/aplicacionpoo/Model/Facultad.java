@@ -4,14 +4,20 @@
  */
 package com.mycompany.aplicacionpoo.Model;
 
+import com.mycompany.aplicacionpoo.Observer.Observable;
+import com.mycompany.aplicacionpoo.Observer.Observer;
+import java.util.ArrayList;
+
 /**
  *
  * @author nicol
  */
-public class Facultad {
+public class Facultad implements Observable{
     private double id;
     private String nombre;
     private Persona decano;
+    
+    private ArrayList<Observer> observadores = new ArrayList<>();
 
     public Facultad(double id, String nombre, Persona decano) {
         this.id = id;
@@ -53,5 +59,22 @@ public class Facultad {
             "Facultad{id=%.0f, nombre='%s', decano=%s}",
             id, nombre, decano
         );
-    }    
+    }   
+    
+    @Override
+    public void agregarObservador(Observer o) {
+        observadores.add(o);
+    }
+
+    @Override
+    public void notificar(String mensaje) {
+        for (Observer o : observadores) {
+            o.actualizar(mensaje);
+        }
+    }
+
+    @Override
+    public void eliminarObservador(Observer observer) {
+        observadores.remove(observer);
+    }
 }

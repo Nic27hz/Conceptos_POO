@@ -6,12 +6,15 @@ package com.mycompany.aplicacionpoo.Controller;
 
 import com.mycompany.aplicacionpoo.DTO.EstudianteDTO;
 import com.mycompany.aplicacionpoo.DTO.Mapper.EstudianteMapper;
+import com.mycompany.aplicacionpoo.DTO.PersonaDTO;
 import com.mycompany.aplicacionpoo.DTO.ProgramaDTO;
 import com.mycompany.aplicacionpoo.Factory.Impl.DTO.EstudianteFactoryDTO;
+import com.mycompany.aplicacionpoo.Factory.Impl.DTO.PersonaFactoryDTO;
 import com.mycompany.aplicacionpoo.Factory.Impl.DTO.ProgramaFactoryDTO;
 import com.mycompany.aplicacionpoo.Service.EstudianteDao;
 import com.mycompany.aplicacionpoo.Service.Impl.EstudianteDaoImpl;
 import com.mycompany.aplicacionpoo.Model.Estudiante;
+import com.mycompany.aplicacionpoo.Observer.Impl.EstudianteObserver;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,11 +27,13 @@ public class EstudianteController {
     private final EstudianteDao estudianteDao;
     private final EstudianteFactoryDTO estudianteFactory;
     private final ProgramaFactoryDTO programaFactory;
+    private final PersonaFactoryDTO personaFactory;
 
     public EstudianteController() {
         this.estudianteDao = new EstudianteDaoImpl();
         this.estudianteFactory = new EstudianteFactoryDTO();
         this.programaFactory = new ProgramaFactoryDTO();
+        this.personaFactory = new PersonaFactoryDTO();
     }
 
 
@@ -37,10 +42,15 @@ public class EstudianteController {
         ProgramaDTO programaDTO = (ProgramaDTO) programaFactory.crearVacio();
         programaDTO.setId(idPrograma);
         
-        EstudianteDTO dto = estudianteFactory.crear(codigo, programaDTO, estado, promedio);
+        PersonaDTO p = (PersonaDTO) personaFactory.crearVacio();
+        p.setId(id);
+        
+        EstudianteDTO dto = estudianteFactory.crear(p, codigo, programaDTO, estado, promedio);
 
         Estudiante estudiante = EstudianteMapper.toEntity(dto);
         estudianteDao.agregarEstudiante(estudiante);
+        estudiante.agregarObservador(new EstudianteObserver("Observador Estudiante: "));
+        estudiante.notificar("Se Agrego un nuevo estudiante " + estudiante.getNombres() + "Con programa: " + estudiante.getPrograma().getNombre());
     }
 
 
@@ -48,15 +58,27 @@ public class EstudianteController {
        ProgramaDTO programaDTO = (ProgramaDTO) programaFactory.crearVacio();
         programaDTO.setId(idPrograma);
         
-        EstudianteDTO dto = estudianteFactory.crear(codigo, programaDTO, estado, promedio);
+        PersonaDTO p = (PersonaDTO) personaFactory.crearVacio();
+        p.setId(id);
+        
+        EstudianteDTO dto = estudianteFactory.crear(p, codigo, programaDTO, estado, promedio);
 
         Estudiante estudiante = EstudianteMapper.toEntity(dto);
         estudianteDao.actualizarEstudiante(estudiante);
+        estudiante.agregarObservador(new EstudianteObserver("Observador Estudiante: "));
+        estudiante.notificar("Se actualizó un estudiante con Id: " + estudiante.getId());
     }
 
    
     public void eliminarEstudiante(double id) {
-        estudianteDao.eliminarEstudiante(id);
+                
+        EstudianteDTO dto = (EstudianteDTO) estudianteFactory.crearVacio();
+        dto.setId(id); 
+        Estudiante estudiante = EstudianteMapper.toEntity(dto);
+        
+        estudianteDao.eliminarEstudiante(estudiante);
+        estudiante.agregarObservador(new EstudianteObserver("Observador Estudiante: "));
+        estudiante.notificar("Se elimino un estudiante con Id: " + estudiante.getId());
     }
 
     public EstudianteDTO buscarEstudiante(double id) {

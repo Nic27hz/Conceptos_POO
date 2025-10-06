@@ -12,6 +12,7 @@ import com.mycompany.aplicacionpoo.Factory.Impl.DTO.ProfesorFactoryDTO;
 import com.mycompany.aplicacionpoo.Service.FacultadDao;
 import com.mycompany.aplicacionpoo.Service.Impl.FacultadDaoImpl;
 import com.mycompany.aplicacionpoo.Model.Facultad;
+import com.mycompany.aplicacionpoo.Observer.Impl.FacultadObserver;
 import java.util.List;
 
 
@@ -41,6 +42,8 @@ public class FacultadController {
         Facultad facu = FacultadMapper.toEntity(facultad);
 
         facultadDao.agregarFacultad(facu);
+        facu.agregarObservador(new FacultadObserver("Observador Facultad: "));
+        facu.notificar("Se agregó una Facultad: " + facu.getNombre());
     }
 
     public void actualizarFacultad(int id, String nombre, int idDecano) {
@@ -53,10 +56,20 @@ public class FacultadController {
         Facultad facu = FacultadMapper.toEntity(facultad);
 
         facultadDao.agregarFacultad(facu);
+        facu.agregarObservador(new FacultadObserver("Observador Facultad: "));
+        facu.notificar("Se actualizó una Facultad con Id: " + facu.getId());
     }
     
     public void eliminarFacultad(int id){
-        facultadDao.eliminarFacultad(id);
+        
+        FacultadDTO facultad = (FacultadDTO) facultadFactory.crearVacio();
+        facultad.setId(id);
+        
+        Facultad facul = FacultadMapper.toEntity(facultad);
+        
+        facultadDao.eliminarFacultad(facul);
+        facul.agregarObservador(new FacultadObserver("Observador Facultad: "));
+        facul.notificar("Se eliminó una Facultad con Id: " + facul.getId());
     }
     
     public FacultadDTO buscarFacultad(int id){

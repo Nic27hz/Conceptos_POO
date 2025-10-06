@@ -4,16 +4,22 @@
  */
 package com.mycompany.aplicacionpoo.Model;
 
+import com.mycompany.aplicacionpoo.Observer.Observable;
+import com.mycompany.aplicacionpoo.Observer.Observer;
+import java.util.ArrayList;
+
 
 /**
  *
  * @author nicol
  */
-public class CursoProfesor {
+public class CursoProfesor implements Observable {
     private Profesor profesor;
     private int año;
     private int semestre;
     private Curso curso;
+    
+    ArrayList<Observer> observadores = new ArrayList<>();
 
     public CursoProfesor(Profesor profesor, int año, int semestre, Curso curso) {
         this.profesor = profesor;
@@ -65,5 +71,22 @@ public class CursoProfesor {
             año, semestre,
             curso.getNombre()
         );
+    }
+    
+     @Override
+    public void agregarObservador(Observer o) {
+        observadores.add(o);
+    }
+
+    @Override
+    public void notificar(String mensaje) {
+        for (Observer o : observadores) {
+            o.actualizar(mensaje);
+        }
+    }
+
+    @Override
+    public void eliminarObservador(Observer observer) {
+        observadores.remove(observer);
     }
 }

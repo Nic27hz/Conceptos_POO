@@ -16,7 +16,7 @@ public interface ProgramaDao {
     
     void actualizarPrograma(Programa programa);
     
-    void eliminarPrograma(double id);
+    void eliminarPrograma(Programa programa);
     
     Programa buscarPrograma(double id);
     

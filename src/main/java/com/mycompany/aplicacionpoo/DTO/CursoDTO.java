@@ -4,8 +4,12 @@
  */
 package com.mycompany.aplicacionpoo.DTO;
 
+import com.mycompany.aplicacionpoo.Observer.Observable;
+import com.mycompany.aplicacionpoo.Observer.Observer;
+import java.util.ArrayList;
 
-public class CursoDTO {
+
+public class CursoDTO{
     private int id;
     private String nombre;
     private ProgramaDTO programa;

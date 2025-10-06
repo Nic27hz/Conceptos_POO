@@ -5,7 +5,7 @@
 package com.mycompany.aplicacionpoo.DTO;
 
 
-public class CursoProfesorDTO {
+public class CursoProfesorDTO{
     private ProfesorDTO profesor;
     private int año;
     private int semestre;
@@ -52,7 +52,6 @@ public class CursoProfesorDTO {
     public void setCurso(CursoDTO curso) {
         this.curso = curso;
     }
-    
     
 }
 

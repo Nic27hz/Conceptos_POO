@@ -4,16 +4,22 @@
  */
 package com.mycompany.aplicacionpoo.Model;
 
+import com.mycompany.aplicacionpoo.Observer.Observable;
+import com.mycompany.aplicacionpoo.Observer.Observer;
+import java.util.ArrayList;
+
 
 /**
  *
  * @author nicol
  */
-public class Estudiante extends Persona{
+public class Estudiante extends Persona implements Observable{
     private double codigo;
     private Programa programa;
     private boolean activo;
     private double promedio;
+    
+    private ArrayList<Observer> observadores = new ArrayList<>();
 
     public Estudiante(double id, String nombres, String apellidos, String email, double codigo, Programa programa, boolean activo, double promedio) {
         super(id, nombres, apellidos, email, "Estudiante");
@@ -64,5 +70,21 @@ public class Estudiante extends Persona{
             "Estudiante{%s, codigo=%.0f, programa='%s', activo=%b, promedio=%.2f}",
             super.toString(), codigo, programa.getNombre(), activo, promedio
         );
+    }
+    @Override
+    public void agregarObservador(Observer o) {
+        observadores.add(o);
+    }
+
+    @Override
+    public void notificar(String mensaje) {
+        for (Observer o : observadores) {
+            o.actualizar(mensaje);
+        }
+    }
+
+    @Override
+    public void eliminarObservador(Observer observer) {
+        observadores.remove(observer);
     }
 }

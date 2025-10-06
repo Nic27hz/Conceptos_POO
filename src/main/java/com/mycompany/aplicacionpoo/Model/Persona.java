@@ -4,16 +4,22 @@
  */
 package com.mycompany.aplicacionpoo.Model;
 
+import com.mycompany.aplicacionpoo.Observer.Observable;
+import com.mycompany.aplicacionpoo.Observer.Observer;
+import java.util.ArrayList;
+
 /**
  *
  * @author nicol
  */
-public class Persona {
+public class Persona implements Observable{
     private double id;
     private String nombres;
     private String apellidos;
     private String email;
     private String tipo;
+    
+    ArrayList<Observer> observadores = new ArrayList<>();
     
     public Persona(double id, String nombres, String apellidos, String email, String tipo){
         this.id = id;
@@ -67,5 +73,21 @@ public class Persona {
     @Override
     public String toString() {
         return "Persona{" + "id=" + id + ", nombres=" + nombres + ", apellidos=" + apellidos + ", email=" + email + ", tipo=" + tipo + '}';
+    }
+    @Override
+    public void agregarObservador(Observer o) {
+        observadores.add(o);
+    }
+
+    @Override
+    public void notificar(String mensaje) {
+        for (Observer o : observadores) {
+            o.actualizar(mensaje);
+        }
+    }
+
+    @Override
+    public void eliminarObservador(Observer observer) {
+        observadores.remove(observer);
     }
 }

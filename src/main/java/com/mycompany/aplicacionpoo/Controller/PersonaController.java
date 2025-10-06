@@ -5,8 +5,9 @@ import com.mycompany.aplicacionpoo.DTO.PersonaDTO;
 import com.mycompany.aplicacionpoo.Factory.Impl.DTO.PersonaFactoryDTO;
 import com.mycompany.aplicacionpoo.Service.Impl.PersonaDaoImpl;
 import com.mycompany.aplicacionpoo.Service.PersonaDao;
-import com.mycompany.aplicacionpoo.Factory.Impl.PersonaFactory;
+
 import com.mycompany.aplicacionpoo.Model.Persona;
+import com.mycompany.aplicacionpoo.Observer.Impl.PersonaObserver;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
@@ -37,18 +38,29 @@ public class PersonaController {
         Persona persona = PersonaMapper.toEntity(personaDTO);
             
         personaDao.guardarPersona(persona);
+        persona.agregarObservador(new PersonaObserver("Observador Persona"));
+        persona.notificar("Se agregó nueva Persona: " + persona.getId() + persona.getNombres() );
     }
     
     public void actualizarPersona(int id, String nombre, String apellido, String correo, String tipo){
         
-        PersonaDTO personaDTO = personaFactory.crear(id, nombre, apellido, tipo, tipo);
+        PersonaDTO personaDTO = personaFactory.crear(id, nombre, apellido, correo, tipo);
         Persona persona = PersonaMapper.toEntity(personaDTO);
             
         personaDao.actualizarPersona(persona);
+        persona.agregarObservador(new PersonaObserver("Observador Persona"));
+        persona.notificar("Se actualizó persona con ID: " + persona.getId());
     }
     
     public void eliminarPersona(int id){
-        personaDao.eliminarPersona(id);
+        PersonaDTO personaDTO = (PersonaDTO) personaFactory.crearVacio();
+        personaDTO.setId(id);
+        
+        Persona persona = PersonaMapper.toEntity(personaDTO);
+        
+        personaDao.eliminarPersona(persona);
+        persona.agregarObservador(new PersonaObserver("Observador Persona"));
+        persona.notificar("Se eliminó persona con ID: " + persona.getId());
     }
     
     public ArrayList<PersonaDTO> mostrarPersona() {

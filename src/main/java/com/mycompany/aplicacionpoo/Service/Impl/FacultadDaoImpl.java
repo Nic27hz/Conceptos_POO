@@ -1,8 +1,8 @@
 package com.mycompany.aplicacionpoo.Service.Impl;
 
-import com.mycompany.aplicacionpoo.Config.Conexion;
-import com.mycompany.aplicacionpoo.Config.ConexionFactory;
-import com.mycompany.aplicacionpoo.Config.Singleton;
+import com.mycompany.aplicacionpoo.Singleton.Adapter.Conexion;
+import com.mycompany.aplicacionpoo.Singleton.Adapter.ConexionFactory;
+import com.mycompany.aplicacionpoo.Singleton.Singleton;
 import com.mycompany.aplicacionpoo.Service.FacultadDao;
 import com.mycompany.aplicacionpoo.Model.Facultad;
 import com.mycompany.aplicacionpoo.Model.Persona;
@@ -117,7 +117,7 @@ public class FacultadDaoImpl implements FacultadDao {
     }
 
     @Override
-    public void eliminarFacultad(int id) {
+    public void eliminarFacultad(Facultad facultad) {
         String sql = "DELETE FROM facultad WHERE id = ?";
 
         
@@ -125,7 +125,7 @@ public class FacultadDaoImpl implements FacultadDao {
 
         try(PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-            stmt.setInt(1, id);
+            stmt.setInt(1, (int) facultad.getId());
 
             int filas = stmt.executeUpdate();
 

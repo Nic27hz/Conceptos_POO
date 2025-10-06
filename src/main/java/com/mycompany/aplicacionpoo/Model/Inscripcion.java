@@ -4,16 +4,22 @@
  */
 package com.mycompany.aplicacionpoo.Model;
 
+import com.mycompany.aplicacionpoo.Observer.Observable;
+import com.mycompany.aplicacionpoo.Observer.Observer;
+import java.util.ArrayList;
+
 
 /**
  *
  * @author nicol
  */
-public class Inscripcion {
+public class Inscripcion implements Observable{
     private Curso curso;
     private int año;
     private int semestre;
     private Estudiante estudiante;
+    
+    private ArrayList<Observer> observadores = new ArrayList<>();
 
     public Inscripcion(Curso curso, int año, int semestre, Estudiante estudiante) {
         this.curso = curso;
@@ -65,5 +71,22 @@ public class Inscripcion {
             estudiante.getNombres() + " " + estudiante.getApellidos(),
             estudiante.getCodigo()
         );
+    }
+    
+    @Override
+    public void agregarObservador(Observer o) {
+        observadores.add(o);
+    }
+
+    @Override
+    public void notificar(String mensaje) {
+        for (Observer o : observadores) {
+            o.actualizar(mensaje);
+        }
+    }
+
+    @Override
+    public void eliminarObservador(Observer observer) {
+        observadores.remove(observer);
     }
 }

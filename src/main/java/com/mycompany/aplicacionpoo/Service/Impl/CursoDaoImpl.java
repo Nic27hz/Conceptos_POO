@@ -1,7 +1,7 @@
 package com.mycompany.aplicacionpoo.Service.Impl;
 
 
-import com.mycompany.aplicacionpoo.Config.Singleton;
+import com.mycompany.aplicacionpoo.Singleton.Singleton;
 import com.mycompany.aplicacionpoo.Service.CursoDao;
 import com.mycompany.aplicacionpoo.Model.Curso;
 import com.mycompany.aplicacionpoo.Model.Programa;

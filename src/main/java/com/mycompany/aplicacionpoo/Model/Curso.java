@@ -4,15 +4,21 @@
  */
 package com.mycompany.aplicacionpoo.Model;
 
+import com.mycompany.aplicacionpoo.Observer.Observable;
+import com.mycompany.aplicacionpoo.Observer.Observer;
+import java.util.ArrayList;
+
 /**
  *
  * @author nicol
  */
-public class Curso {
+public class Curso implements Observable{
     private int id;
     private String nombre;
     private Programa programa;
     private boolean activo;
+    
+    private ArrayList<Observer> observadores = new ArrayList<>();
 
     public Curso(int id, String nombre, Programa programa, boolean activo) {
         this.id = id;
@@ -62,5 +68,22 @@ public class Curso {
             "Curso{id=%d, nombre='%s', programa=%s, activo=%b}",
             id, nombre, programa, activo
         );
+    }
+    
+    @Override
+    public void agregarObservador(Observer o) {
+        observadores.add(o);
+    }
+
+    @Override
+    public void notificar(String mensaje) {
+        for (Observer o : observadores) {
+            o.actualizar(mensaje);
+        }
+    }
+
+    @Override
+    public void eliminarObservador(Observer observer) {
+        observadores.remove(observer);
     }
 }

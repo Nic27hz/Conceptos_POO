@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public interface EstudianteDao {
     public void agregarEstudiante(Estudiante estudiante);
     public void actualizarEstudiante(Estudiante estudiante);
-    public void eliminarEstudiante(double id);
+    public void eliminarEstudiante(Estudiante estudiante);
     public Estudiante buscarEstudiante(double id);
     public ArrayList<Estudiante> mostrarEstudiante();
 }

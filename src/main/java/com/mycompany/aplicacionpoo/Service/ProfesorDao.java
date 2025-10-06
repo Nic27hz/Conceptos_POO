@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public interface ProfesorDao {
     public void agregarProfesor(Profesor profesor);
     public void actualizarProfesor(Profesor profesor);
-    public void eliminarProfesor(int id);
+    public void eliminarProfesor(Profesor profesor);
     public Profesor buscarProfesor(int id);
     public ArrayList<Profesor> mostrarProfesor();
 }

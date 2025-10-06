@@ -5,6 +5,9 @@
 package com.mycompany.aplicacionpoo.Model;
 
 
+import com.mycompany.aplicacionpoo.Observer.Observable;
+import com.mycompany.aplicacionpoo.Observer.Observer;
+import java.util.ArrayList;
 import java.util.Date;
 
 
@@ -12,12 +15,14 @@ import java.util.Date;
  *
  * @author nicol
  */
-public class Programa {
+public class Programa implements Observable{
     private double id;
     private String nombre;
     private double duracion;
     private Date registro;
     private Facultad facultad;
+    
+    private ArrayList<Observer> observadores = new ArrayList<>();
 
     public Programa(double id, String nombre, double duracion, Date registro, Facultad facultad) {
         this.id = id;
@@ -77,4 +82,21 @@ public class Programa {
             id, nombre, duracion, registro, facultad
         );
     }    
+    
+    @Override
+    public void agregarObservador(Observer o) {
+        observadores.add(o);
+    }
+
+    @Override
+    public void notificar(String mensaje) {
+        for (Observer o : observadores) {
+            o.actualizar(mensaje);
+        }
+    }
+
+    @Override
+    public void eliminarObservador(Observer observer) {
+        observadores.remove(observer);
+    }
 }

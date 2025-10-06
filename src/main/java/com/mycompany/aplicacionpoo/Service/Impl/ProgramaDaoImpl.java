@@ -1,9 +1,7 @@
 package com.mycompany.aplicacionpoo.Service.Impl;
 
 
-import com.mycompany.aplicacionpoo.Config.Conexion;
-import com.mycompany.aplicacionpoo.Config.ConexionFactory;
-import com.mycompany.aplicacionpoo.Config.Singleton;
+import com.mycompany.aplicacionpoo.Singleton.Singleton;
 import com.mycompany.aplicacionpoo.Service.ProgramaDao;
 import com.mycompany.aplicacionpoo.Model.Programa;
 import java.sql.Connection;
@@ -59,14 +57,14 @@ public class ProgramaDaoImpl implements ProgramaDao {
     }
 
     @Override
-    public void eliminarPrograma(double id) {
+    public void eliminarPrograma(Programa programa) {
         String sql = "DELETE FROM programa WHERE id = ?";
         
         Connection conn = Singleton.getInstance().getConnection();
 
          try(PreparedStatement stmt = conn.prepareStatement(sql)) {
             
-            stmt.setInt(1, (int) id);
+            stmt.setInt(1, (int) programa.getId());
             
             int filas = stmt.executeUpdate();
             if (filas > 0) {
@@ -110,6 +108,7 @@ public class ProgramaDaoImpl implements ProgramaDao {
         String sql = "SELECT id, nombre FROM programa";
         
         Connection conn = Singleton.getInstance().getConnection();
+        
 
          try(PreparedStatement stmt = conn.prepareStatement(sql);
             ResultSet rs = stmt.executeQuery()) {

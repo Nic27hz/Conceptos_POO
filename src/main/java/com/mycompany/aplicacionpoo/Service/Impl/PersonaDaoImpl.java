@@ -5,7 +5,7 @@
 package com.mycompany.aplicacionpoo.Service.Impl;
 
 
-import com.mycompany.aplicacionpoo.Config.Singleton;
+import com.mycompany.aplicacionpoo.Singleton.Singleton;
 import com.mycompany.aplicacionpoo.Service.PersonaDao;
 import com.mycompany.aplicacionpoo.Model.Persona;
 import java.sql.Connection;
@@ -38,14 +38,14 @@ public class PersonaDaoImpl implements PersonaDao{
     }
 
     @Override
-    public void eliminarPersona(int id) {
+    public void eliminarPersona(Persona persona) {
         String sql = "DELETE FROM persona WHERE id = ?";
 
         Connection conn = Singleton.getInstance().getConnection();
 
         try(PreparedStatement stmt = conn.prepareStatement(sql)){
 
-            stmt.setInt(1, id);
+            stmt.setInt(1, (int) persona.getId());
             stmt.executeUpdate();
 
         } catch (SQLException ex) {

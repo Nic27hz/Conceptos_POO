@@ -5,8 +5,8 @@
 package com.mycompany.aplicacionpoo.Model;
 
 
-import com.mycompany.aplicacionpoo.Config.Conexion;
-import com.mycompany.aplicacionpoo.Config.ConexionFactory;
+import com.mycompany.aplicacionpoo.Singleton.Adapter.Conexion;
+import com.mycompany.aplicacionpoo.Singleton.Adapter.ConexionFactory;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

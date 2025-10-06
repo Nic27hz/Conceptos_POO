@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public interface FacultadDao {
     void agregarFacultad(Facultad facultad);
     void actualizarFacultad(Facultad facultad);
-    void eliminarFacultad(int id);
+    void eliminarFacultad(Facultad facultad);
     Facultad buscarFacultad(int id);
     ArrayList<Facultad> mostrarFacultad();
 }

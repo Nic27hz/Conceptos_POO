@@ -5,6 +5,7 @@
 package com.mycompany.aplicacionpoo.Factory.Impl.DTO;
 
 import com.mycompany.aplicacionpoo.DTO.EstudianteDTO;
+import com.mycompany.aplicacionpoo.DTO.PersonaDTO;
 import com.mycompany.aplicacionpoo.DTO.ProgramaDTO;
 import com.mycompany.aplicacionpoo.Factory.Factory;
 
@@ -19,7 +20,7 @@ public class EstudianteFactoryDTO implements Factory {
         return new EstudianteDTO();
     }
     
-    public EstudianteDTO crear(double codigo, ProgramaDTO programa, boolean activo, double promedio){
-        return new EstudianteDTO(codigo, programa, activo, promedio);
+    public EstudianteDTO crear(PersonaDTO persona, double codigo, ProgramaDTO programa, boolean activo, double promedio){
+        return new EstudianteDTO(persona, codigo, programa, activo, promedio);
     }
 }

@@ -5,9 +5,7 @@
 package com.mycompany.aplicacionpoo.Service.Impl;
 
 
-import com.mycompany.aplicacionpoo.Config.Conexion;
-import com.mycompany.aplicacionpoo.Config.ConexionFactory;
-import com.mycompany.aplicacionpoo.Config.Singleton;
+import com.mycompany.aplicacionpoo.Singleton.Singleton;
 import com.mycompany.aplicacionpoo.Service.EstudianteDao;
 import com.mycompany.aplicacionpoo.Model.Estudiante;
 import com.mycompany.aplicacionpoo.Model.Programa;
@@ -82,14 +80,14 @@ public class EstudianteDaoImpl implements EstudianteDao {
     }
 
     @Override
-    public void eliminarEstudiante(double id) {
+    public void eliminarEstudiante(Estudiante estudiante) {
         String sql = "DELETE FROM estudiante WHERE id = ?";
         
         Connection conn = Singleton.getInstance().getConnection();
 
         try(PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-            stmt.setDouble(1, id);
+            stmt.setDouble(1, estudiante.getId());
             stmt.executeUpdate();
 
         } catch (SQLException ex) {

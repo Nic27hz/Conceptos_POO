@@ -12,7 +12,7 @@ import java.util.ArrayList;
 public interface CursoProfesorDao {
     void agregarCursoProfesor(CursoProfesor cursoProfesor);
     void actualizarCursoProfesor(CursoProfesor cursoProfesor);
-    void eliminarCursoProfesor(int idCurso, double idProfesor);
+    void eliminarCursoProfesor(CursoProfesor cursoProfesor);
     CursoProfesor buscarCursoProfesor(int idCurso, double idProfesor);
     ArrayList<CursoProfesor> mostrarCursoProfesores();
 }

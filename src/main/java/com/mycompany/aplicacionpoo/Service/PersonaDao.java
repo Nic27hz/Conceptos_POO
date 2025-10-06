@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 public interface PersonaDao {
     void guardarPersona(Persona persona);
-    void eliminarPersona(int id);
+    void eliminarPersona(Persona Persona);
     void actualizarPersona(Persona persona);
     ArrayList<Persona> mostrarPersona();
     Persona buscarPersona(int id);

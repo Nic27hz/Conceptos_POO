@@ -1,5 +1,7 @@
-package com.mycompany.aplicacionpoo.Config;
+package com.mycompany.aplicacionpoo.Singleton;
 
+import com.mycompany.aplicacionpoo.Singleton.Adapter.Conexion;
+import com.mycompany.aplicacionpoo.Singleton.Adapter.ConexionFactory;
 import java.sql.Connection;
 
 public class Singleton {
